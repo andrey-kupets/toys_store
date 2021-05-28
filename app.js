@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
+console.log(mongoose)
 const { MONGO_URL, PORT } = require('./config');
 
 const app = express();
@@ -12,7 +12,7 @@ app.listen(PORT, () => {
 });
 
 function _connectDB() {
-    mongoose.connect(MONGO_URL);
+    mongoose.connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
     const { connection } = mongoose;
 
