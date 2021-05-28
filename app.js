@@ -19,20 +19,20 @@ app.use(express.urlencoded({extended: true}));
 app.use('/', apiRouter);
 
 app.listen(PORT, () => {
-    console.log(`Port ${PORT} is being listened`);
+  console.log(`Port ${PORT} is being listened`);
 });
 
 function _connectDB() {
-    mongoose.connect(MONGO_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
+  mongoose.connect(MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
 
-    const { connection } = mongoose;
+  const { connection } = mongoose;
 
-    connection.on('error', (error) => {
-        console.log(error);
-    });
+  connection.on('error', (error) => {
+    console.log(error);
+  });
 }
 
 
