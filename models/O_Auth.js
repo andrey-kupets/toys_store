@@ -5,4 +5,4 @@ const o_AuthScheme = new Schema({
   refresh_token: { type: String },
 });
 
-module.exports = ('O_Auth', o_AuthScheme);
+module.exports = model('O_Auth', o_AuthScheme);

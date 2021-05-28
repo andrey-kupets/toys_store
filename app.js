@@ -34,5 +34,3 @@ function _connectDB() {
     console.log(error);
   });
 }
-
-

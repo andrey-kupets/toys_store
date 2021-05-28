@@ -1,7 +1,7 @@
 const { productService } = require('../service');
 
 module.exports = {
-  getProducts : async (req, res) => {
+  getProducts: async (req, res) => {
     const { query } = req;
 
     try {
