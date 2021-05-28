@@ -36,12 +36,3 @@ function _connectDB() {
 }
 
 
-// app.get('/users', ((req, res) => {
-//     res.json([
-//         {"name": "Vasya"},
-//         {"name": "Petr"},
-//         {"name": "Manya"}
-//     ])
-// }))
-
-

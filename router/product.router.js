@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
-router.get('/', (req, res) => {
-    res.json('method GET is ready');
-})
+const { productController } = require('../controller');
+
+router.get('/', productController.getProducts);
 
 module.exports = router;
