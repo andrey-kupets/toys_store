@@ -1,5 +1,6 @@
 const { Product } = require('../models');
+require('../models'); // SUPER WORK!!
 
 module.exports = {
-  findProducts: (query) => Product.find(query),
+  findProducts: (q) => Product.find(q),
 };

@@ -8,4 +8,13 @@ module.exports = {
       next(e);
     }
   },
+
+  generateUser: async (req, res, next) => {
+    try {
+      await userService.createUser(req.body);
+      res.status(201).json('user is created');
+    } catch (e) {
+      next(e);
+    }
+  }
 };

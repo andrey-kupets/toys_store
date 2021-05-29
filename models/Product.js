@@ -7,6 +7,6 @@ const productScheme = new Schema({
   description: { type: String },
   type: { type: String, required: true },
   img: { type: String },
-});
+}, { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
 module.exports = model('Product', productScheme);
