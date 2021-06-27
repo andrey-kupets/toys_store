@@ -13,7 +13,8 @@ const userScheme = new Schema({
   role: { type: String, default: 'customer' },
   // token: { type: String },
   // _products: [productSubScheme], // 1st way
-  _products: [{ type: Schema.Types.ObjectId }], // 2nd way
+  _products: [{ type: Schema.Types.ObjectId }], // 2nd way - ONLY for aggregate
+  // _products: [{ type: Schema.Types.Mixed }], // 2nd way
 }, { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
 userScheme.virtual('client_status').get(function() {
