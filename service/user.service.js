@@ -3,5 +3,6 @@ const { User } = require('../models');
 
 module.exports = {
   findUsers: (q) => User.find(q),
+  findUserById: (userId) => User.findById(userId),
   createUser: (b) => User.create(b),
 };
