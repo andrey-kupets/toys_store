@@ -16,7 +16,7 @@ const userScheme = new Schema({
   _products: [{ type: Schema.Types.ObjectId }], // 2nd way
 }, { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
-userScheme.virtual('name_status').get(function() {
+userScheme.virtual('client_status').get(function() {
   return `${this.name}: [${this.role}]`;
 });
 
@@ -24,14 +24,21 @@ userScheme.virtual('_productsCartTotals', {
   ref: 'Product',
   localField: '_products',
   foreignField: '_id',
-  // justOne: true, // тогда попюлейт вернет один объект, а не массив (из одного объекта), если даже тача у юзера - одна
-  // options: {
-  //     select: 'name'
-  // }
+  // eslint-disable-next-line max-len
+  // justOne: true, // возвращает только один объект (первый по запросу, если объектов несколько), а не массив (пусть даже из одного объекта)
+  options: {
+      select: 'name price',
+      // select: 'name price likes.type',
+  }
 });
 
 userScheme
   .pre('find', function() {
+    this.populate('_productsCartTotals');
+  });
+
+userScheme
+  .pre('findOne', function() {
     this.populate('_productsCartTotals');
   });
 
