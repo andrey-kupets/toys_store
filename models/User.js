@@ -28,8 +28,8 @@ userScheme.virtual('_productsCartTotals', {
   // eslint-disable-next-line max-len
   // justOne: true, // возвращает только один объект (первый по запросу, если объектов несколько), а не массив (пусть даже из одного объекта)
   options: {
-      select: 'name price',
-      // select: 'name price likes.type',
+    select: 'name price',
+    // select: 'name price likes.type',
   }
 });
 
