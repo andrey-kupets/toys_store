@@ -3,14 +3,13 @@ const { Product } = require('../models');
 
 module.exports = {
   findProducts: (query = {}) => {
-
     const { lte, gte, ...filters } = query;
 
-    if (!!lte) {
+    if (lte) {
       filters.price = Object.assign({}, filters.price, { $lte: lte });
     }
 
-    if (!!gte) {
+    if (gte) {
       filters.price = Object.assign({}, filters.price, { $gte: gte });
     }
 
