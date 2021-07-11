@@ -15,18 +15,26 @@ module.exports = {
     keys.forEach((key) => {
       switch (key) {
         case 'priceGte':
-          filteredObject.price = Object.assign({}, filteredObject.price, { $gte: +filters.priceGte });
+          filteredObject.price = Object.assign({}, filteredObject.price, { $gte: +filters.priceGte }); // missed data returns as 0
           break;
+
         case 'priceLte':
-          filteredObject.price = Object.assign({}, filteredObject.price, { $lte: filters.priceLte ? +filters.priceLte : Infinity });
+          filteredObject.price = Object.assign({}, filteredObject.price, {
+            $lte: filters.priceLte
+              ? +filters.priceLte
+              : Infinity
+          });
           break;
+
         case 'category':
           const categories = filters.category.split(';');
           filteredObject.category = { $in: categories };
           break;
+
         // case 'name':
         //   filteredObject.name = { $regex: filters.name, $options: 'i' };
         //   break;
+
         default:
           filteredObject[key] = filters[key];
       }
@@ -44,12 +52,10 @@ module.exports = {
     const products = await Product.find(filteredObject).limit(+limit).skip(skip);
     const count = await Product.countDocuments(filteredObject);
 
-    console.log(filteredObject);
-
     return {
       data: products,
       page,
-      limit,
+      // limit,
       // count,
       pages: Math.ceil(count / limit)
     };
