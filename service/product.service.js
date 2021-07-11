@@ -18,7 +18,7 @@ module.exports = {
           filteredObject.price = Object.assign({}, filteredObject.price, { $gte: +filters.priceGte });
           break;
         case 'priceLte':
-          filteredObject.price = Object.assign({}, filteredObject.price, { $lte: +filters.priceLte });
+          filteredObject.price = Object.assign({}, filteredObject.price, { $lte: filters.priceLte ? +filters.priceLte : Infinity });
           break;
         case 'category':
           const categories = filters.category.split(';');
