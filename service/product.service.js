@@ -21,6 +21,8 @@ module.exports = {
     // return ({ productsPerPage: Product.find(filters).limit(limit).skip(skip), productsTotals: Product.find(filters) });
     return Product.find(filters).limit(limit).skip(skip);
   },
-  findProductById: (productId) => Product.findById(productId),
+
   findProductsTotals: () => Product.find(),
+
+  findProductById: (productId) => Product.findById(productId),
 };
