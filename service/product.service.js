@@ -21,8 +21,8 @@ module.exports = {
         case 'priceLte':
           filteredObject.price = Object.assign({}, filteredObject.price, {
             $lte: filters.priceLte
-              ? +filters.priceLte
-              : Infinity
+              // ? +filters.priceLte
+              // : Infinity
           });
           break;
 
@@ -31,9 +31,9 @@ module.exports = {
           filteredObject.category = { $in: categories };
           break;
 
-        // case 'name':
-        //   filteredObject.name = { $regex: filters.name, $options: 'i' };
-        //   break;
+        case 'name':
+          filteredObject.name = { $regex: filters.name, $options: 'i' };
+          break;
 
         default:
           filteredObject[key] = filters[key];
