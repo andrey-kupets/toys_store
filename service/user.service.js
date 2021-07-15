@@ -1,5 +1,5 @@
-const { User } = require('../models');
-// require('../models'); // DEFINITELY! due to models deps
+const { User } = require('../model');
+// require('../model'); // DEFINITELY! due to model deps
 
 module.exports = {
   findUsers: (q) => User.find(q),

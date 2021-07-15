@@ -1,5 +1,5 @@
-const { Product } = require('../models');
-// require('../models'); // SUPER WORK!!
+const { Product } = require('../model');
+// require('../model'); // SUPER WORK!!
 
 module.exports = {
   findProducts: async (query = {}) => {
@@ -20,7 +20,7 @@ module.exports = {
 
         case 'priceLte':
           filteredObject.price = Object.assign({}, filteredObject.price, {
-            $lte: filters.priceLte
+            $lte: +filters.priceLte
               // ? +filters.priceLte
               // : Infinity
           });
