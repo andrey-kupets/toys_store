@@ -1,9 +1,10 @@
 const router = require('express').Router();
 
 const { userController } = require('../controller');
+const { userMiddleware } = require('../middleware');
 
 router.route('/')
-  .post(userController.generateUser)
+  .post(userMiddleware.isUserValid, userController.generateUser)
   .get(userController.getUsers);
 
 router.route('/:userId')
