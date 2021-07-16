@@ -11,4 +11,5 @@ module.exports = Joi.object({
   role: Joi.string().default('customer'),
   // _products: Joi.any(),
   _products: Joi.array(),
+
 });

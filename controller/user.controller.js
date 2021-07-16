@@ -22,7 +22,7 @@ module.exports = {
   generateUser: async (req, res, next) => {
     try {
       await userService.createUser(req.body);
-      res.status(201).json(req.body);
+      res.status(201).json('User is created');
     } catch (e) {
       next(e);
     }
