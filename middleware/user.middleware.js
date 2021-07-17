@@ -21,9 +21,9 @@ module.exports = {
     try {
       const { body } = req;
 
-      const users = await userService.findUsers({ name: body.name });
+      const users = await userService.findUsers(); // in this case name is not allowed to be matched too
 
-      // or we may do it by find
+      // or we may do it by findOne
       users.forEach((user) => {
         if ((body.name === user.name) || (body.email === user.email) || (body.password === user.password)) {
           throw new Error('User already exists. Some his fields are being used. Please enter another ones');

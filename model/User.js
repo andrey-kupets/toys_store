@@ -12,9 +12,10 @@ const userScheme = new Schema({
   password: { type: String, required: true },
   role: { type: String, default: 'customer' },
   // token: { type: String },
-  // _products: [productSubScheme], // 1st way
-  _products: [{ type: Schema.Types.ObjectId }], // 2nd way - ONLY for aggregate
-  // _products: [{ type: Schema.Types.Mixed }], // 2nd way
+  // _productsInCart: [productSubScheme], // 1st way
+  _productsInCart: [{ type: Schema.Types.ObjectId }], // 2nd way - ONLY this one fits '.aggregate'
+  // _productsInCart: [{ type: Schema.Types.Mixed }], // 3rd way
+  _productsInWishlist: [{ type: Schema.Types.ObjectId }]
 }, { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
 userScheme.virtual('client_status').get(function() {
@@ -23,7 +24,7 @@ userScheme.virtual('client_status').get(function() {
 
 userScheme.virtual('_productsCartTotals', {
   ref: 'Product',
-  localField: '_products',
+  localField: '_productsInCart',
   foreignField: '_id',
   // eslint-disable-next-line max-len
   // justOne: true, // возвращает только один объект (первый по запросу, если объектов несколько), а не массив (пусть даже из одного объекта)
@@ -33,14 +34,25 @@ userScheme.virtual('_productsCartTotals', {
   }
 });
 
+userScheme.virtual('_productsWishlistTotals', {
+  ref: 'Product',
+  localField: '_productsInWishlist',
+  foreignField: '_id',
+  options: {
+    select: 'name price',
+  }
+});
+
 userScheme
   .pre('find', function() {
     this.populate('_productsCartTotals');
+    this.populate('_productsWishlistTotals');
   });
 
 userScheme
   .pre('findOne', function() {
     this.populate('_productsCartTotals');
+    this.populate('_productsWishlistTotals');
   });
 
 module.exports = model('User', userScheme);
