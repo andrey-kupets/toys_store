@@ -1,3 +1,3 @@
 module.exports = {
-  passwordHelper: require('./password.helper'),
+  passwordHasher: require('./password.helper'),
 };
