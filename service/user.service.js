@@ -18,5 +18,6 @@ module.exports = {
   // ]),
 
   findUserById: (userId) => User.findById(userId),
+  findUserByEmail: (e) => User.findOne(e),
   createUser: (b) => User.create(b),
 };

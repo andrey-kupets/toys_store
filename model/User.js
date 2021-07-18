@@ -1,5 +1,7 @@
 const { model, Schema } = require('mongoose');
 
+const { dbCollectionsEnum: { USER } } = require('../constant');
+
 // const productSubScheme = { // 1st way
 //   name: { type: String, required: true },
 //   quantity: { type: Number, required: true },
@@ -55,4 +57,4 @@ userScheme
     this.populate('_productsWishlistTotals');
   });
 
-module.exports = model('User', userScheme);
+module.exports = model(USER, userScheme);

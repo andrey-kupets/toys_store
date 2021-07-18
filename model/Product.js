@@ -1,5 +1,7 @@
 const { model, Schema } = require('mongoose');
 
+const { dbCollectionsEnum: { PRODUCT } } = require('../constant');
+
 const productScheme = new Schema({
   name: { type: String, required: true },
   category: { type: String, required: true },
@@ -11,4 +13,4 @@ const productScheme = new Schema({
   // totals_sum: { type: Number, default: 0 },
 }, { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
-module.exports = model('Product', productScheme);
+module.exports = model(PRODUCT, productScheme);
