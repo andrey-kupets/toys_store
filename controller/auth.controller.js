@@ -1,10 +1,10 @@
 const { userService } = require('../service');
-const { passwordHasher } = require('../helper');
+const { passwordHasher, tokenizer } = require('../helper');
 
 module.exports = {
   authUser: async (req, res, next) => {
     try {
-      // add to middleware
+      // todo add to middleware
       const { email, password } = req.body;
 
       const user = await userService.findUserByEmail({ email });
@@ -15,9 +15,12 @@ module.exports = {
 
       await passwordHasher.compare(password, user.password);
 
-      res.json('ok, you are authorized');
+      const tokens = tokenizer();
+
+      res.json(tokens);
     } catch (e) {
       next(e);
+      // res.json(e.message);
     }
   }
 };
