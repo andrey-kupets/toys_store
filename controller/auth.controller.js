@@ -1,5 +1,5 @@
-const { userService } = require('../service');
-const { passwordHasher, tokenizer } = require('../helper');
+const { authService, userService } = require('../service');
+const { passwordHasher } = require('../helper');
 
 module.exports = {
   authUser: async (req, res, next) => {
@@ -15,9 +15,10 @@ module.exports = {
 
       await passwordHasher.compare(password, user.password);
 
-      const tokens = tokenizer();
+      const tokens = await authService.createRecord(user._id);
 
       res.json(tokens);
+      res.status(200).json('user is authorized');
     } catch (e) {
       next(e);
       // res.json(e.message);

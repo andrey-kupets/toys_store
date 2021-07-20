@@ -47,7 +47,7 @@ module.exports = {
 
       await userService.deleteUserById(userId);
 
-      res.json('user is deleted');
+      res.status(200).json('user is deleted');
     } catch (e) {
       // next(e);
       res.json(e.message);
