@@ -36,7 +36,13 @@ module.exports = {
   removeUserById: async (req, res, next) => {
     try {
       const { userId } = req.params;
-      const user = await userService.findUserById(userId);
+
+      // const user = await userService.findUserById(userId); // middleware pass instead of one more request
+
+      // if (userId !== req.user._id.toString()) { // _id --- is not quite a string
+      if (userId !== req.user.id) {
+        throw new Error('Unauthorized');
+      }
 
       // todo add to middleware
       if (!user) {
