@@ -38,8 +38,6 @@ module.exports = {
       const { userId } = req.params;
       const user = await userService.findUserById(userId);
 
-      console.log(userId);
-
       // todo add to middleware
       if (!user) {
         throw new Error("there's no user with pointed id");

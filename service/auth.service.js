@@ -2,10 +2,10 @@ const { O_Auth } = require('../model');
 const { tokenizer } = require('../helper');
 
 module.exports = {
-  createRecord: async (userId) => {
+  createRecord: (userId) => { // may it async ?
     const tokens = tokenizer();
 
-    await O_Auth.create({ _user_id: userId, ...tokens });
+    O_Auth.create({ _user_id: userId, ...tokens });
 
     return tokens;
   },
