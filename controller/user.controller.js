@@ -45,7 +45,7 @@ module.exports = {
       }
 
       // todo add to middleware
-      if (!user) {
+      if (!req.user) {
         throw new Error("there's no user with pointed id");
       }
 
