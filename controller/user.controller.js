@@ -23,6 +23,7 @@ module.exports = {
   generateUser: async (req, res, next) => {
     try {
       const { password } = req.body;
+      console.log(req.body, 'from react body');
 
       const hashPassword = await passwordHasher.hash(password);
 

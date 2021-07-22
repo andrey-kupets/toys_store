@@ -25,7 +25,7 @@ module.exports = {
 
       // or we may do it by findOne
       users.forEach((user) => {
-        if ((body.name === user.name) || (body.email === user.email) || (body.password === user.password)) {
+        if ((body.email === user.email) || (body.password === user.password)) {
           throw new Error('User already exists. Some his fields are being used. Please enter another ones');
         }
       });

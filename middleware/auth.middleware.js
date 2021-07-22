@@ -26,6 +26,8 @@ module.exports = {
         throw new Error('No tokens');
       }
 
+      // console.log(tokens); // output of double populate as [Object] ???
+
       req.user = tokens._user_id; // pass 'user'-field of req to controller farther
 
       next();
