@@ -37,12 +37,12 @@ module.exports = {
         );
       }
 
-      if (userId !== user.id) {
-        throw new ErrorHandler(
-          responseCodesEnum.UNAUTHORIZED,
-          errorMsg.INCORRECT_USER.customCode
-        );
-      }
+        if (!user) {
+          throw new ErrorHandler(
+            responseCodesEnum.BAD_REQUEST,
+            errorMsg.INCORRECT_USER.customCode
+          );
+        }
 
       next();
     } catch (e) {
@@ -50,7 +50,7 @@ module.exports = {
     }
   },
 
-  doesUserExist: async (req, res, next) => {
+  doesUserAlreadyExist: async (req, res, next) => {
     try {
       // 1st way by findOne(e)
 
@@ -60,7 +60,7 @@ module.exports = {
       if (user) {
         throw new ErrorHandler(
           responseCodesEnum.BAD_REQUEST,
-          errorMsg.USER_EXISTS.customCode
+          errorMsg.USER_ALREADY_EXISTS.customCode
         );
       }
 
@@ -77,6 +77,42 @@ module.exports = {
       //     );
       //   }
       // });
+
+      next();
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  doesUserExist: async (req, res, next) => {
+    try {
+      // 1st way by findOne(e)
+
+      const { email } = req.body;
+      const user = await userService.findUserByEmail({ email });
+
+      if (!user) {
+        throw new ErrorHandler(
+          responseCodesEnum.BAD_REQUEST,
+          errorMsg.INCORRECT_USER.customCode
+        );
+      }
+
+      // 2nd way by find()
+      //
+      // const { body } = req;
+      // const users = await userService.findUsers();
+      //
+      // users.forEach((user) => {
+      //   if ((body.email === user.email) || (body.password === user.password)) {
+      //     throw new ErrorHandler(
+      //       responseCodesEnum.BAD_REQUEST,
+      //       errorMsg.USER_EXISTS.customCode
+      //     );
+      //   }
+      // });
+
+      req.user = user; // pass to next()
 
       next();
     } catch (e) {

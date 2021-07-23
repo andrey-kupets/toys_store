@@ -22,7 +22,7 @@ app.use('*', (err, req, res, next) => {
   res
     .status(err.status || 500)
     .json({
-      customCode: err.customcode || 0,
+      customCode: err.customCode || 0,
       message: err.message || '',
     });
 });

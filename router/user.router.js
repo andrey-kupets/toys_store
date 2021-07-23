@@ -6,7 +6,7 @@ const { authMiddleware, userMiddleware } = require('../middleware');
 router.route('/')
   .post(
     userMiddleware.isUserValid,
-    userMiddleware.doesUserExist,
+    userMiddleware.doesUserAlreadyExist,
     userController.registerUser
   )
   .get(userController.getUsers);

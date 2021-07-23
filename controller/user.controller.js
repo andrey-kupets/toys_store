@@ -1,10 +1,12 @@
-const { userService } = require('../service');
+const { messagesEnum, responseCodesEnum } = require('../constant');
 const { passwordHasher } = require('../helper');
+const { userService } = require('../service');
 
 module.exports = {
   getUsers: async (req, res, next) => {
     try {
-      res.status(200).json(await userService.findUsers(req.query));
+      res.status(responseCodesEnum.OK)
+        .json(await userService.findUsers(req.query));
     } catch (e) {
       next(e);
     }
@@ -14,7 +16,8 @@ module.exports = {
     const { params: { userId } } = req;
 
     try {
-      res.status(200).json(await userService.findUserById(userId));
+      res.status(responseCodesEnum.OK)
+        .json(await userService.findUserById(userId));
     } catch (e) {
       next(e);
     }
@@ -22,12 +25,13 @@ module.exports = {
 
   registerUser: async (req, res, next) => {
     try {
-      const { password } = req.body;
+      const { password, prefLang = 'ua' } = req.body;
 
       const hashPassword = await passwordHasher.hash(password);
 
       await userService.createUser({ ...req.body, password: hashPassword });
-      res.status(201).json('User is created');
+      res.status(responseCodesEnum.CREATED)
+        .json(messagesEnum.USER_CREATED[prefLang]);
     } catch (e) {
       next(e);
     }
@@ -36,25 +40,19 @@ module.exports = {
   removeUserById: async (req, res, next) => {
     try {
       const { userId } = req.params;
+      const { prefLang = 'ua' } = req.body;
 
       // const user = await userService.findUserById(userId); // middleware pass instead of one more request
 
       // if (userId !== req.user._id.toString()) { // _id --- is not quite a string
-      if (userId !== req.user.id) {
-        throw new Error('Unauthorized');
-      }
-
-      // todo add to middleware
-      if (!req.user) {
-        throw new Error("there's no user with pointed id");
-      }
 
       await userService.deleteUserById(userId);
 
-      res.status(200).json('user is deleted');
+      res.json(messagesEnum.USER_DELETED[prefLang])
+        .status(responseCodesEnum.NO_CONTENT);
+      next();
     } catch (e) {
-      // next(e);
-      res.json(e.message);
+      next(e);
     }
   }
 };

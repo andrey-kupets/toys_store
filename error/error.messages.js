@@ -28,8 +28,12 @@ module.exports = {
     ua: 'Некоректна дія',
   },
 
-  // AUTH -UNAUTHORIZED
   INCORRECT_USER: {
+    customCode: 4006
+  },
+
+  // AUTH -UNAUTHORIZED
+  UNAUTHORIZED: {
     customCode: 4010
   },
 
@@ -83,7 +87,7 @@ module.exports = {
     customCode: 40011
   },
 
-  USER_EXISTS: {
+  USER_ALREADY_EXISTS: {
     customCode: 40012
   },
 

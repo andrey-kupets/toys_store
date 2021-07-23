@@ -1,27 +1,21 @@
-const { authService, userService } = require('../service');
+const { messagesEnum, responseCodesEnum } = require('../constant');
 const { passwordHasher } = require('../helper');
+const { authService } = require('../service');
 
 module.exports = {
   authUser: async (req, res, next) => {
     try {
-      // todo add to middleware
-      const { email, password } = req.body;
+      const { password } = req.body;
 
-      const user = await userService.findUserByEmail({ email });
+      await passwordHasher.compare(password, req.user.password);
 
-      if (!user) {
-        throw new Error('There is no user with pointed email');
-      }
+      const tokens = await authService.createRecord(req.user._id);
 
-      await passwordHasher.compare(password, user.password);
-
-      const tokens = await authService.createRecord(user._id);
-
-      res.json(tokens);
-      res.status(200).json('user is authorized');
+      res.status(responseCodesEnum.OK)
+        .json(tokens);
+        // .json(messagesEnum.USER_IS_AUTHORIZED);
     } catch (e) {
       next(e);
-      // res.json(e.message);
     }
   }
 };

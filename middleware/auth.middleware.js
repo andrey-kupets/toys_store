@@ -11,6 +11,8 @@ module.exports = {
     try {
       const access_token = req.get(AUTHORIZATION);
 
+      const { userId } = req.params;
+
       if (!access_token) {
         throw new ErrorHandler(
           responseCodesEnum.BAD_REQUEST,
@@ -41,9 +43,17 @@ module.exports = {
 
       req.user = tokens._user_id; // pass 'user'-field of req to controller farther
 
+      if (!req.user) {
+        throw new ErrorHandler(
+          responseCodesEnum.UNAUTHORIZED,
+          errorMsg.UNAUTHORIZED.customCode
+        );
+      }
       next();
     } catch (e) {
       next(e);
     }
-  }
+  },
+
+
 };
