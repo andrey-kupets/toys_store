@@ -18,6 +18,15 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/', apiRouter);
 
+app.use('*', (err, req, res, next) => {
+  res
+    .status(err.status)
+    .json({
+      text: err.message,
+      ok: false
+    });
+});
+
 app.listen(PORT, () => {
   console.log(`Port ${PORT} is being listened`);
 });
