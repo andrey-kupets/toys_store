@@ -1,6 +1,7 @@
 const { responseCodesEnum } = require('../constant');
-const { userValidators } = require('../validator');
+const { errorMsg, ErrorHandler } = require('../error');
 const { userService } = require('../service');
+const { mutualValidators, userValidators } = require('../validator');
 
 module.exports = {
   isUserValid: (req, res, next) => {
@@ -8,31 +9,78 @@ module.exports = {
       const { error } = userValidators.userCreationValidator.validate(req.body);
 
       if (error) {
-        throw new Error(error.details[0].message);
+        throw new ErrorHandler(
+          responseCodesEnum.BAD_REQUEST,
+          errorMsg.BAD_REQUEST.customCode,
+          error.details[0].message // Joi error
+        );
       }
 
       next();
     } catch (e) {
-      res.status(responseCodesEnum.BAD_REQUEST).json(e.message);
+      next(e);
+    }
+  },
+
+  isUserIdValid: async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      const user = await userService.findUserById(userId);
+
+      const { error } = mutualValidators.mongoIdValidator.validate(userId);
+
+      if (error) {
+        throw new ErrorHandler(
+          responseCodesEnum.BAD_REQUEST,
+          errorMsg.JOI_VALIDATION.customCode,
+          error.details[0].message
+        );
+      }
+
+      if (userId !== user.id) {
+        throw new ErrorHandler(
+          responseCodesEnum.UNAUTHORIZED,
+          errorMsg.INCORRECT_USER.customCode
+        );
+      }
+
+      next();
+    } catch (e) {
+      next(e);
     }
   },
 
   doesUserExist: async (req, res, next) => {
     try {
-      const { body } = req;
+      // 1st way by findOne(e)
 
-      const users = await userService.findUsers(); // in this case name is not allowed to be matched too
+      const { email } = req.body;
+      const user = await userService.findUserByEmail({ email });
 
-      // or we may do it by findOne
-      users.forEach((user) => {
-        if ((body.email === user.email) || (body.password === user.password)) {
-          throw new Error('User already exists. Some his fields are being used. Please enter another ones');
-        }
-      });
+      if (user) {
+        throw new ErrorHandler(
+          responseCodesEnum.BAD_REQUEST,
+          errorMsg.USER_EXISTS.customCode
+        );
+      }
+
+      // 2nd way by find()
+      //
+      // const { body } = req;
+      // const users = await userService.findUsers();
+      //
+      // users.forEach((user) => {
+      //   if ((body.email === user.email) || (body.password === user.password)) {
+      //     throw new ErrorHandler(
+      //       responseCodesEnum.BAD_REQUEST,
+      //       errorMsg.USER_EXISTS.customCode
+      //     );
+      //   }
+      // });
 
       next();
     } catch (e) {
-      res.status(responseCodesEnum.BAD_REQUEST).json(e.message);
+      next(e);
     }
-  }
+  },
 };

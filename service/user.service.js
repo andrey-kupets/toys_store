@@ -18,7 +18,7 @@ module.exports = {
   // ]),
 
   findUserById: (userId) => User.findById(userId),
-  findUserByEmail: (e) => User.findOne(e),
+  findUserByEmail: (email) => User.findOne(email),
   createUser: (b) => User.create(b),
   // deleteUserById: (userId) => User.deleteOne({ _id: userId }),
   deleteUserById: (userId) => User.findByIdAndDelete({ _id: userId }),

@@ -20,10 +20,10 @@ app.use('/', apiRouter);
 
 app.use('*', (err, req, res, next) => {
   res
-    .status(err.status)
+    .status(err.status || 500)
     .json({
-      text: err.message,
-      ok: false
+      customCode: err.customcode || 0,
+      message: err.message || '',
     });
 });
 
