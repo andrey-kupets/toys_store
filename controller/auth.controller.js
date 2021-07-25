@@ -1,5 +1,5 @@
 const { messagesEnum, responseCodesEnum } = require('../constant');
-const { passwordHasher } = require('../helper');
+const { passwordHasher, tokenizer } = require('../helper');
 const { authService } = require('../service');
 
 module.exports = {
@@ -13,7 +13,17 @@ module.exports = {
 
       res.status(responseCodesEnum.OK)
         .json(tokens);
-        // .json(messagesEnum.USER_IS_AUTHORIZED);
+      // .json(messagesEnum.USER_IS_AUTHORIZED);
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  refreshToken: async (req, res, next) => {
+    try {
+      const tokens = tokenizer();
+
+      res.json(tokens).status(responseCodesEnum.OK);
     } catch (e) {
       next(e);
     }

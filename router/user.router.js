@@ -11,15 +11,18 @@ router.route('/')
   )
   .get(userController.getUsers);
 
-router.route('/:userId')
-  .get(
-    userMiddleware.isUserIdValid,
-    userController.getUserById
-  )
-  .delete(
-    authMiddleware.checkAccessToken,
-    userMiddleware.isUserIdValid,
-    userController.removeUserById
-  );
+// router.route('/:userId')
+//   .all(userMiddleware.isUserIdValid)
+//   .get(userController.getUserById)
+//   .delete(
+//     authMiddleware.checkAccessToken,
+//     userController.removeUserById
+//   );
+
+router.use('/:userId', userMiddleware.isUserIdValid);
+router.get('/:userId', userController.getUserById);
+router.delete('/:userId',
+  authMiddleware.checkAccessToken,
+  userController.removeUserById);
 
 module.exports = router;
