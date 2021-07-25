@@ -11,4 +11,5 @@ module.exports = {
   },
 
   findTokensByParams: (token) => O_Auth.findOne(token),
+  updateRecordById: (id, updatedObj) => O_Auth.findByIdAndUpdate(id, updatedObj),
 };

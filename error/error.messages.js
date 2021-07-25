@@ -64,13 +64,13 @@ module.exports = {
     ua: 'Дане відео занадто велике',
   },
 
-  NOT_VALID_FILE: {
+  NOT_VALID_FILE: { // 415 Unsupported Media Type
     customCode: 40013,
     en: 'This file is unknown',
     ua: 'Даний вид файлів є неприпустимим',
   },
 
-  NOT_VALID_PHOTO_TYPE: {
+  NOT_VALID_PHOTO_TYPE: { // 415 Unsupported Media Type
     customCode: 40014,
     en: 'Not valid photo type',
     ua: 'Неприпустиме фото',

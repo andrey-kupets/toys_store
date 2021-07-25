@@ -21,9 +21,13 @@ module.exports = {
 
   refreshToken: async (req, res, next) => {
     try {
+      const { _id, _user_id } = req.tokenInfo;
       const tokens = tokenizer();
 
-      res.json(tokens).status(responseCodesEnum.OK);
+      await authService.updateRecordById(_id, { ...tokens, _user_id });
+
+      res.status(responseCodesEnum.OK)
+        .json(tokens);
     } catch (e) {
       next(e);
     }
