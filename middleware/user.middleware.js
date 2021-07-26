@@ -37,12 +37,12 @@ module.exports = {
         );
       }
 
-        if (!user) {
-          throw new ErrorHandler(
-            responseCodesEnum.BAD_REQUEST,
-            errorMsg.INCORRECT_USER.customCode
-          );
-        }
+      if (!user) {
+        throw new ErrorHandler(
+          responseCodesEnum.BAD_REQUEST,
+          errorMsg.INCORRECT_USER.customCode
+        );
+      }
 
       next();
     } catch (e) {
@@ -88,13 +88,21 @@ module.exports = {
     try {
       // 1st way by findOne(e)
 
-      const { email } = req.body;
+      const { email, password } = req.body;
+
+      if (email === '' || password === '') {
+        throw new ErrorHandler(
+          responseCodesEnum.BAD_REQUEST,
+          errorMsg.EMPTY.customCode
+        );
+      }
+
       const user = await userService.findUserByEmail({ email });
 
       if (!user) {
         throw new ErrorHandler(
           responseCodesEnum.BAD_REQUEST,
-          errorMsg.INCORRECT_USER.customCode
+          errorMsg.WRONG_EMAIL_OR_PASSWORD.customCode
         );
       }
 
