@@ -25,13 +25,13 @@ module.exports = {
 
   registerUser: async (req, res, next) => {
     try {
-      const { password, prefLang = 'ua' } = req.body;
+      const { password } = req.body;
 
       const hashPassword = await passwordHasher.hash(password);
 
       await userService.createUser({ ...req.body, password: hashPassword });
       res.status(responseCodesEnum.CREATED)
-        .json(messagesEnum.USER_CREATED[prefLang]);
+        .json(messagesEnum.USER_CREATED);
     } catch (e) {
       next(e);
     }

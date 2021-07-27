@@ -6,12 +6,21 @@ const { mutualValidators, userValidators } = require('../validator');
 module.exports = {
   isUserValid: (req, res, next) => {
     try {
+      const { email, name, password } = req.body;
+
+      if (name === '' || email === '' || password === '') {
+        throw new ErrorHandler(
+          responseCodesEnum.BAD_REQUEST,
+          errorMsg.EMPTY.customCode
+        );
+      }
+
       const { error } = userValidators.userCreationValidator.validate(req.body);
 
       if (error) {
         throw new ErrorHandler(
           responseCodesEnum.BAD_REQUEST,
-          errorMsg.BAD_REQUEST.customCode,
+          errorMsg.JOI_VALIDATION.customCode,
           error.details[0].message // Joi error
         );
       }
@@ -55,6 +64,7 @@ module.exports = {
       // 1st way by findOne(e)
 
       const { email } = req.body;
+
       const user = await userService.findUserByEmail({ email });
 
       if (user) {
