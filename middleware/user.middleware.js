@@ -64,7 +64,6 @@ module.exports = {
       // 1st way by findOne(e)
 
       const { email } = req.body;
-
       const user = await userService.findUserByEmail({ email });
 
       if (user) {
@@ -99,6 +98,7 @@ module.exports = {
       // 1st way by findOne(e)
 
       const { email, password } = req.body;
+      const user = await userService.findUserByEmail({ email });
 
       if (email === '' || password === '') {
         throw new ErrorHandler(
@@ -107,9 +107,7 @@ module.exports = {
         );
       }
 
-      const user = await userService.findUserByEmail({ email });
-
-      if (!user) {
+      if (!user || password !== user.password) {
         throw new ErrorHandler(
           responseCodesEnum.BAD_REQUEST,
           errorMsg.WRONG_EMAIL_OR_PASSWORD.customCode
