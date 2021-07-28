@@ -1,3 +1,4 @@
+const { passwordHasher } = require('../helper');
 const { responseCodesEnum } = require('../constant');
 const { errorMsg, ErrorHandler } = require('../error');
 const { userService } = require('../service');
@@ -107,12 +108,14 @@ module.exports = {
         );
       }
 
-      if (!user || password !== user.password) {
+      if (!user) {
         throw new ErrorHandler(
           responseCodesEnum.BAD_REQUEST,
           errorMsg.WRONG_EMAIL_OR_PASSWORD.customCode
         );
       }
+
+      await passwordHasher.compare(password, user.password);
 
       // 2nd way by find()
       //
