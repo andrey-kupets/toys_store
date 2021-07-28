@@ -30,6 +30,7 @@ module.exports = {
       const hashPassword = await passwordHasher.hash(password);
 
       await userService.createUser({ ...req.body, password: hashPassword });
+
       res.status(responseCodesEnum.CREATED)
         .json(messagesEnum.USER_CREATED);
     } catch (e) {

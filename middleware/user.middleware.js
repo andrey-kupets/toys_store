@@ -115,7 +115,14 @@ module.exports = {
         );
       }
 
-      await passwordHasher.compare(password, user.password);
+      const doPasswordsEqual = await passwordHasher.compare(password, user.password);
+
+      if (!doPasswordsEqual) {
+        throw new ErrorHandler(
+          responseCodesEnum.UNAUTHORIZED,
+          errorMsg.WRONG_EMAIL_OR_PASSWORD.customCode
+        );
+      }
 
       // 2nd way by find()
       //
