@@ -99,7 +99,7 @@ module.exports = {
       // 1st way by findOne(e)
 
       const { email, password } = req.body;
-      const user = await userService.findUserByEmail({ email });
+      const user = await userService.findUserByEmail({ email }).select('+password');
 
       if (email === '' || password === '') {
         throw new ErrorHandler(

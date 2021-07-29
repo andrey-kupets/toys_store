@@ -11,7 +11,7 @@ const userScheme = new Schema({
   name: { type: String, required: true },
   phone: { type: Number },
   email: { type: String, required: true },
-  password: { type: String, required: true },
+  password: { type: String, required: true, select: false },
   role: { type: String, default: 'customer' },
   // token: { type: String },
   // _productsInCart: [productSubScheme], // 1st way

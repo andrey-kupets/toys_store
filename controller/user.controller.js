@@ -46,6 +46,7 @@ module.exports = {
       // const user = await userService.findUserById(userId); // middleware pass instead of one more request
 
       // if (userId !== req.user._id.toString()) { // _id --- is not quite a string
+      // don't need to check it. because of 'isUserIdValid' middleware is used before
 
       await userService.deleteUserById(userId);
 
