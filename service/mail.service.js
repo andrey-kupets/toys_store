@@ -21,7 +21,7 @@ const mailTransporter = mailer.createTransport({
   }
 });
 
-const sendMail = (userMail, action) => {
+const sendMail = async (userMail, action) => {
   try {
     const oneTemplateInfo = templatesInfo[action];
 
@@ -32,7 +32,7 @@ const sendMail = (userMail, action) => {
       );
     }
 
-    const html = templateParser.render(oneTemplateInfo.templateName);
+    const html = await templateParser.render(oneTemplateInfo.templateName);
 
     return mailTransporter.sendMail({
       from: 'NowhereMan',
