@@ -1,6 +1,6 @@
-const { messagesEnum, responseCodesEnum } = require('../constant');
+const { emailActionsEnum, messagesEnum, responseCodesEnum } = require('../constant');
 const { passwordHasher } = require('../helper');
-const { userService } = require('../service');
+const { mailService, userService } = require('../service');
 
 module.exports = {
   getUsers: async (req, res, next) => {
@@ -25,11 +25,13 @@ module.exports = {
 
   registerUser: async (req, res, next) => {
     try {
-      const { password } = req.body;
+      const { email, password } = req.body;
 
       const hashPassword = await passwordHasher.hash(password);
 
       await userService.createUser({ ...req.body, password: hashPassword });
+
+      await mailService.sendMail(email, emailActionsEnum.REGISTRATION, { userName: email });
 
       res.status(responseCodesEnum.CREATED)
         .json(messagesEnum.USER_CREATED);

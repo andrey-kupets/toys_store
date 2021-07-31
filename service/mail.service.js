@@ -1,5 +1,5 @@
 const EmailTemplates = require('email-templates');
-const mailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 const path = require('path');
 
 const { ROOT_EMAIL, ROOT_EMAIL_PASSWORD } = require('../config');
@@ -13,7 +13,7 @@ const templateParser = new EmailTemplates({
   }
 });
 
-const mailTransporter = mailer.createTransport({
+const mailTransporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: ROOT_EMAIL,
@@ -21,7 +21,7 @@ const mailTransporter = mailer.createTransport({
   }
 });
 
-const sendMail = async (userMail, action) => {
+const sendMail = async (userMail, action, context) => {
   try {
     const oneTemplateInfo = templatesInfo[action];
 
@@ -32,7 +32,7 @@ const sendMail = async (userMail, action) => {
       );
     }
 
-    const html = await templateParser.render(oneTemplateInfo.templateName);
+    const html = await templateParser.render(oneTemplateInfo.templateName, context);
 
     return mailTransporter.sendMail({
       from: 'NowhereMan',

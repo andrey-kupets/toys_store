@@ -3,7 +3,7 @@ const { emailActionsEnum } = require('../constant');
 module.exports = {
   [emailActionsEnum.ACCOUNT_BLOCKING]: {
     templateName: 'zzz',
-    subject: 'Your account was blocked'
+    subject: 'Your account was blocked.'
   },
   [emailActionsEnum.ACCOUNT_DELETION]: {
     templateName: 'xxx',
@@ -11,10 +11,10 @@ module.exports = {
   },
   [emailActionsEnum.PASSWORD_CHANGING]: {
     templateName: 'yyy',
-    subject: 'Your password was changed'
+    subject: 'Your password was changed successfully.'
   },
   [emailActionsEnum.REGISTRATION]: {
     templateName: 'registration',
-    subject: 'Welcome to our brotherhood.'
+    subject: 'Congratulations with registration!'
   },
 };
