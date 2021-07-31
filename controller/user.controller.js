@@ -25,13 +25,14 @@ module.exports = {
 
   registerUser: async (req, res, next) => {
     try {
-      const { email, password } = req.body;
+      const { email, name, password } = req.body;
 
       const hashPassword = await passwordHasher.hash(password);
 
       await userService.createUser({ ...req.body, password: hashPassword });
 
-      await mailService.sendMail(email, emailActionsEnum.REGISTRATION, { userName: email });
+      // https://myaccount.google.com/lesssecureapps - поставить галочку
+      await mailService.sendMail(email, emailActionsEnum.REGISTRATION, { userName: name });
 
       res.status(responseCodesEnum.CREATED)
         .json(messagesEnum.USER_CREATED);
