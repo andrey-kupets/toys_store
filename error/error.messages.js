@@ -22,17 +22,18 @@ module.exports = {
     customCode: 4004
   },
 
+  // BAD REQUEST - MAIL SERVICE
   INCORRECT_ACTION: {
     customCode: 4005,
     en: 'Incorrect action',
     ua: 'Некоректна дія',
   },
 
+  // BAD REQUEST - USER
   INCORRECT_USER: {
     customCode: 4006
   },
 
-  // BAD REQUEST - USER
   NO_USER: {
     customCode: 4007
   },
