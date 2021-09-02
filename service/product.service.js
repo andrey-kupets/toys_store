@@ -54,7 +54,7 @@ module.exports = {
 
     return {
       data: products,
-      page,
+      page: +page,
       // limit,
       // count,
       pages: Math.ceil(count / limit)
@@ -62,4 +62,6 @@ module.exports = {
   },
 
   findProductById: (productId) => Product.findById(productId),
+
+  // findProductInCart: (filteredArr) => Product.find({ $in: filteredArr }),
 };

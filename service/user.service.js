@@ -10,9 +10,9 @@ module.exports = {
   //   {
   //     $lookup: {
   //       from: 'products',
-  //       localField: '_products',
+  //       localField: '_cart',
   //       foreignField: '_id',
-  //       as: '_productsCartTotals',
+  //       as: '_productsInCart',
   //     }
   //   },
   // ]),

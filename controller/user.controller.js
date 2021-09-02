@@ -5,8 +5,11 @@ const { mailService, userService } = require('../service');
 module.exports = {
   getUsers: async (req, res, next) => {
     try {
+      const users = await userService.findUsers(req.query);
+      console.log(users);
+
       res.status(responseCodesEnum.OK)
-        .json(await userService.findUsers(req.query));
+        .json(users);
     } catch (e) {
       next(e);
     }

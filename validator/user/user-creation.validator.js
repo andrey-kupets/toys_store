@@ -2,11 +2,20 @@ const Joi = require('joi');
 
 const { regExpEnum } = require('../../constant');
 
-const productsSubScheme = Joi.array().items(
+const cartSubScheme = Joi.array().items(
   Joi.object({
     _id: Joi.string()
       .alphanum()
-      .min(24).max(24)
+      .min(24).max(24),
+    count: Joi.number()
+  })
+);
+
+const wishlistSubScheme = Joi.array().items(
+  Joi.object({
+    _id: Joi.string()
+      .alphanum()
+      .min(24).max(24),
   })
 );
 
@@ -20,6 +29,6 @@ module.exports = Joi.object({
   password: Joi.string().regex(regExpEnum.PASSWORD_REGEXP).required(),
   role: Joi.string().default('customer'),
   // _products: Joi.any(),
-  _productsInCart: productsSubScheme,
-  _productsInWishlist: productsSubScheme,
+  _cart: cartSubScheme,
+  _wishlist: wishlistSubScheme,
 });

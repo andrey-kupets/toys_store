@@ -2,9 +2,9 @@ const { model, Schema } = require('mongoose');
 
 const { dbCollectionsEnum: { USER } } = require('../constant');
 
-// const productSubScheme = { // 1st way
-//   name: { type: String, required: true },
-//   quantity: { type: Number, required: true },
+// const cartSubScheme = { // 1st way
+//   _id: { type: String, required: true },
+//   count: { type: Number, required: true },
 // };
 
 const userScheme = new Schema({
@@ -14,19 +14,20 @@ const userScheme = new Schema({
   password: { type: String, required: true, select: false },
   role: { type: String, default: 'customer' },
   // token: { type: String },
-  // _productsInCart: [productSubScheme], // 1st way
-  _productsInCart: [{ type: Schema.Types.ObjectId }], // 2nd way - ONLY this one fits '.aggregate'
-  // _productsInCart: [{ type: Schema.Types.Mixed }], // 3rd way
-  _productsInWishlist: [{ type: Schema.Types.ObjectId }]
+  // _cart: [cartSubScheme], // 1st way
+  _cart: [{ type: Schema.Types.ObjectId }], // 2nd way - ONLY this one fits '.aggregate'
+  // _cart: [{ type: Schema.Types.Mixed }], // 3rd way
+  // _cart: [{ type: Object }],
+  _wishlist: [{ type: Schema.Types.ObjectId }]
 }, { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
 userScheme.virtual('client_status').get(function() {
   return `${this.name}: [${this.role}]`;
 });
 
-userScheme.virtual('_productsCartTotals', {
+userScheme.virtual('_productsInCart', {
   ref: 'Product',
-  localField: '_productsInCart',
+  localField: '_cart',
   foreignField: '_id',
   // eslint-disable-next-line max-len
   // justOne: true, // возвращает только один объект (первый по запросу, если объектов несколько), а не массив (пусть даже из одного объекта)
@@ -36,9 +37,9 @@ userScheme.virtual('_productsCartTotals', {
   }
 });
 
-userScheme.virtual('_productsWishlistTotals', {
+userScheme.virtual('_productsInWishlist', {
   ref: 'Product',
-  localField: '_productsInWishlist',
+  localField: '_wishlist',
   foreignField: '_id',
   options: {
     select: 'name price',
@@ -47,14 +48,14 @@ userScheme.virtual('_productsWishlistTotals', {
 
 userScheme
   .pre('find', function() {
-    this.populate('_productsCartTotals');
-    this.populate('_productsWishlistTotals');
+    this.populate('_productsInCart');
+    this.populate('_productsInWishlist');
   });
 
 userScheme
   .pre('findOne', function() {
-    this.populate('_productsCartTotals');
-    this.populate('_productsWishlistTotals');
+    this.populate('_productsInCart');
+    this.populate('_productsInWishlist');
   });
 
 module.exports = model(USER, userScheme);

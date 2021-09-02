@@ -1,4 +1,4 @@
-const { messagesEnum, responseCodesEnum } = require('../constant');
+const { responseCodesEnum } = require('../constant');
 const { passwordHasher, tokenizer } = require('../helper');
 const { authService } = require('../service');
 
@@ -12,7 +12,7 @@ module.exports = {
       const tokens = await authService.createRecord(req.user._id);
 
       res.status(responseCodesEnum.OK)
-        .json(tokens);
+        .json({ user: req.user, tokens }); //  done for front
       // .json(messagesEnum.USER_IS_AUTHORIZED);
     } catch (e) {
       next(e);
