@@ -6,7 +6,6 @@ module.exports = {
   getUsers: async (req, res, next) => {
     try {
       const users = await userService.findUsers(req.query);
-      console.log(users);
 
       res.status(responseCodesEnum.OK)
         .json(users);

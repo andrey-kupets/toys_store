@@ -2,10 +2,10 @@ const { model, Schema } = require('mongoose');
 
 const { dbCollectionsEnum: { USER } } = require('../constant');
 
-// const cartSubScheme = { // 1st way
-//   _id: { type: String, required: true },
-//   count: { type: Number, required: true },
-// };
+const cartSubScheme = { // 1st way
+  _id: { type: String, required: true },
+  count: { type: Number, required: true },
+};
 
 const userScheme = new Schema({
   name: { type: String, required: true },
@@ -14,8 +14,8 @@ const userScheme = new Schema({
   password: { type: String, required: true, select: false },
   role: { type: String, default: 'customer' },
   // token: { type: String },
-  // _cart: [cartSubScheme], // 1st way
-  _cart: [{ type: Schema.Types.ObjectId }], // 2nd way - ONLY this one fits '.aggregate'
+  _cart: [cartSubScheme], // 1st way
+  // _cart: [{ type: Schema.Types.ObjectId }], // 2nd way - ONLY this one fits '.aggregate'
   // _cart: [{ type: Schema.Types.Mixed }], // 3rd way
   // _cart: [{ type: Object }],
   _wishlist: [{ type: Schema.Types.ObjectId }]
@@ -27,10 +27,10 @@ userScheme.virtual('client_status').get(function() {
 
 userScheme.virtual('_productsInCart', {
   ref: 'Product',
-  localField: '_cart',
+  localField: '_cart._id', // WORKS JOINING!!!
   foreignField: '_id',
-  // eslint-disable-next-line max-len
-  // justOne: true, // возвращает только один объект (первый по запросу, если объектов несколько), а не массив (пусть даже из одного объекта)
+  // justOne: true, // возвращает только один объект (первый по запросу, если объектов несколько),
+  // а не массив (пусть даже из одного объекта)
   options: {
     select: 'name price',
     // select: 'name price likes.type',
