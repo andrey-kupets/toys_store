@@ -15,7 +15,7 @@ const userScheme = new Schema({
   role: { type: String, default: 'customer' },
   // token: { type: String },
   _cart: [cartSubScheme], // 1st way
-  // _cart: [{ type: Schema.Types.ObjectId }], // 2nd way - ONLY this one fits '.aggregate'
+  // _cart: [{ type: Schema.Types.ObjectId }], // 2nd way - ONLY this one fits '.aggregate' cause id is ObjectId in Mongo
   // _cart: [{ type: Schema.Types.Mixed }], // 3rd way
   // _cart: [{ type: Object }],
   _wishlist: [{ type: Schema.Types.ObjectId }]
