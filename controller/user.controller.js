@@ -61,5 +61,18 @@ module.exports = {
     } catch (e) {
       next(e);
     }
+  },
+
+  updateUser: async (req, res, next) => {
+    try {
+      const { params: { userId }, body } = req;
+
+      await userService.updateOneUser(userId, body);
+
+      res.status(responseCodesEnum.OK)
+        .json(messagesEnum.USER_UPDATED);
+    } catch (e) {
+      next(e);
+    }
   }
 };

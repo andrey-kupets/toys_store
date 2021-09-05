@@ -22,6 +22,5 @@ module.exports = {
   createUser: (b) => User.create(b),
   // deleteUserById: (userId) => User.deleteOne({ _id: userId }),
   deleteUserById: (userId) => User.findByIdAndDelete({ _id: userId }),
-  // updateOneUser: (userIdObj, newFieldObj) => User.updateOne('userIdObj', 'newUserField'), // todo update method
-
+  updateOneUser: (userId, updatingObj) => User.updateOne({ _id: userId }, { $set: updatingObj }),
 };
