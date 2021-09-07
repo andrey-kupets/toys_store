@@ -27,15 +27,11 @@ module.exports = {
         }
       });
 
-      const tokens = await authService.findTokensByParams({ access_token })
+      const authRecord = await authService.findTokensByParams({ access_token })
         .populate('_user_id'); // 'populate' is passing to the controller value of field-ref!!
 
-      if (!tokens) {
+      if (!authRecord) {
         throw new ErrorHandler(
-          // FORBIDDEN
-          // responseCodesEnum.FORBIDDEN,
-          // errorMsg.ACCESS_TOKEN_IS_NOT_VALID.customCode
-          // // or NOT_FOUND
           responseCodesEnum.NOT_FOUND,
           errorMsg.RECORD_NOT_FOUND.customCode
         );
@@ -43,7 +39,7 @@ module.exports = {
 
       // console.log(tokens); // output of double populate as [Object] ???
 
-      req.user = tokens._user_id; // pass 'user'-field of req to controller farther
+      req.user = authRecord._user_id; // pass 'user'-field of req to controller farther
 
       if (!req.user) {
         throw new ErrorHandler(
@@ -77,20 +73,21 @@ module.exports = {
         }
       });
 
-      const tokens = await authService.findTokensByParams({ refresh_token });
+      const authRecord = await authService.findTokensByParams({ refresh_token });
 
-      if (!tokens) {
+      if (!authRecord) {
         throw new ErrorHandler(
           // FORBIDDEN
           // responseCodesEnum.FORBIDDEN,
           // errorMsg.REFRESH_TOKEN_IS_NOT_VALID.customCode
+
           // or NOT_FOUND
           responseCodesEnum.NOT_FOUND,
           errorMsg.RECORD_NOT_FOUND.customCode
         );
       }
 
-      req.tokenInfo = tokens; // pass 'user'-field of req to controller farther
+      req.tokenInfo = authRecord; // pass 'user'-field of req to controller farther
 
       // if (!req.user) {
       //   throw new ErrorHandler(

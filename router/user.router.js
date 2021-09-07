@@ -29,6 +29,7 @@ router.delete('/:userId',
   authMiddleware.checkAccessToken,
   // authMiddleware.checkRefreshToken,
   userController.removeUserById);
+
 router.put('/:userId',
   authMiddleware.checkAccessToken,
   // authMiddleware.checkRefreshToken,

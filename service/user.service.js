@@ -20,8 +20,11 @@ module.exports = {
   findUserById: (userId) => User.findById(userId),
   findUserByEmail: (email) => User.findOne(email),
   createUser: (b) => User.create(b),
+
   // deleteUserById: (userId) => User.deleteOne({ _id: userId }),
   deleteUserById: (userId) => User.findByIdAndDelete({ _id: userId }),
+
   // updateOneUser: (userId, updatingObj) => User.updateOne({ _id: userId }, { $set: updatingObj }),
-  updateOneUser: (userId, updatingObj) => User.findOneAndUpdate({ _id: userId }, updatingObj), // simpler
+  // updateOneUser: (userId, updatingObj) => User.findOneAndUpdate({ _id: userId }, updatingObj), // simpler
+  updateOneUser: (userId, updatingObj) => User.findByIdAndUpdate(userId, updatingObj) // simplest
 };
