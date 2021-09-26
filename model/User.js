@@ -13,7 +13,6 @@ const userScheme = new Schema({
   email: { type: String, required: true },
   password: { type: String, required: true, select: false },
   role: { type: String, default: 'customer' },
-  // token: { type: String },
   _cart: [cartSubScheme], // 1st way
   // _cart: [{ type: Schema.Types.ObjectId }], // 2nd way - ONLY this one fits '.aggregate' cause id is ObjectId in Mongo
   // _cart: [{ type: Schema.Types.Mixed }], // 3rd way
@@ -32,8 +31,8 @@ userScheme.virtual('_productsInCart', {
   // justOne: true, // возвращает только один объект (первый по запросу, если объектов несколько),
   // а не массив (пусть даже из одного объекта)
   options: {
-    select: 'name price',
-    // select: 'name price likes.type',
+    select: 'img name price',
+    // select: 'img name price likes.type',
   }
 });
 
@@ -42,7 +41,7 @@ userScheme.virtual('_productsInWishlist', {
   localField: '_wishlist',
   foreignField: '_id',
   options: {
-    select: 'name price',
+    select: 'img name price',
   }
 });
 

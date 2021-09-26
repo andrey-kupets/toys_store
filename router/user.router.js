@@ -20,19 +20,16 @@ router.route('/')
 //   )
 //   .put(
 //     authMiddleware.checkAccessToken,
-//     // authMiddleware.checkRefreshToken,
 //     userController.updateUser);
 
 router.use('/:userId', userMiddleware.isUserIdValid);
 router.get('/:userId', userController.getUserById);
 router.delete('/:userId',
   authMiddleware.checkAccessToken,
-  // authMiddleware.checkRefreshToken,
   userController.removeUserById);
 
 router.put('/:userId',
   authMiddleware.checkAccessToken,
-  // authMiddleware.checkRefreshToken,
   userController.updateUser);
 
 module.exports = router;
