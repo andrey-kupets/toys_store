@@ -32,4 +32,12 @@ module.exports = {
     ua: 'Ваш профіль успішно видалено',
     ru: 'Ваш профиль успешно удалён'
   },
+
+  // ORDER
+
+  ORDER_CREATED: {
+    en: 'Your order has been accepted for processing',
+    ua: 'Ваше замовлення прийняте в обробку',
+    ru: 'Ваш заказ принят в обработку'
+  },
 };
