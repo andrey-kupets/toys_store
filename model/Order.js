@@ -3,7 +3,7 @@ const { model, Schema } = require('mongoose');
 const { dbCollectionsEnum: { ORDER, PRODUCT, USER } } = require('../constant');
 
 const orderSubScheme = {
-  _product_id: { type: String, required: true, ref: PRODUCT },
+  _id: { type: String, required: true, ref: PRODUCT },
   count: { type: Number, required: true },
 };
 
