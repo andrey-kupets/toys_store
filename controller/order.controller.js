@@ -7,7 +7,7 @@ module.exports = {
       await orderService.checkout(req.body);
 
       res.status(responseCodesEnum.CREATED)
-        .json(messagesEnum.ORDER_CREATED);
+        .json(messagesEnum.ORDER_GENERATED);
     } catch (e) {
       next(e);
     }
