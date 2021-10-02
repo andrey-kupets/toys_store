@@ -67,10 +67,11 @@ module.exports = {
     try {
       const { params: { userId }, body } = req;
 
-      await userService.updateOneUser(userId, body);
+      const updatedUser = await userService.updateOneUser(userId, body);
 
       res.status(responseCodesEnum.OK)
-        .json(messagesEnum.USER_UPDATED);
+        // .json(messagesEnum.USER_UPDATED);
+        .json(updatedUser);
     } catch (e) {
       next(e);
     }
