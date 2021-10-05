@@ -9,7 +9,7 @@ const cartSubScheme = { // 1st way
 
 const userScheme = new Schema({
   name: { type: String, required: true },
-  phone: { type: Number },
+  phone: { type: String },
   email: { type: String, required: true },
   password: { type: String, required: true, select: false },
   role: { type: String, default: 'customer' },

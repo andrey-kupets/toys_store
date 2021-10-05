@@ -18,8 +18,10 @@ module.exports = {
     const { params: { userId } } = req;
 
     try {
+      const user = await userService.findUserById(userId);
+
       res.status(responseCodesEnum.OK)
-        .json(await userService.findUserById(userId));
+        .json(user);
     } catch (e) {
       next(e);
     }
