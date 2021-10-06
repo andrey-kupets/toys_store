@@ -1,6 +1,7 @@
 const { responseCodesEnum } = require('../constant');
 const { passwordHasher, tokenizer } = require('../helper');
 const { authService } = require('../service');
+const { AUTHORIZATION } = require('../constant/constants');
 
 module.exports = {
   authUser: async (req, res, next) => {
@@ -28,6 +29,18 @@ module.exports = {
 
       res.status(responseCodesEnum.OK)
         .json(tokens);
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  logoutUser: async (req, res, next) => {
+    try {
+      const access_token = req.get(AUTHORIZATION);
+
+      await authService.deleteAccessToken({ access_token });
+
+      res.json(responseCodesEnum.OK);
     } catch (e) {
       next(e);
     }
