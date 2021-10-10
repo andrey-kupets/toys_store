@@ -25,7 +25,6 @@ module.exports = {
       const { _id, _user_id } = req.tokenInfo;
       const tokens = tokenizer();
 
-      console.log(tokens)
       await authService.updateRecordById(_id, { ...tokens, _user_id });
 
       res.status(responseCodesEnum.OK)
