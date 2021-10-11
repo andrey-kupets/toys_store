@@ -1,11 +1,12 @@
 const { productService } = require('../service');
+const { responseCodesEnum, messagesEnum } = require('../constant');
 
 module.exports = {
   getProducts: async (req, res, next) => {
     try {
       const products = await productService.findProducts(req.query);
 
-      res.status(200).json(products);
+      res.status(responseCodesEnum.OK).json(products);
     } catch (e) {
       next(e);
     }
@@ -17,7 +18,17 @@ module.exports = {
     try {
       const product = await productService.findProductById(productId);
 
-      res.status(200).json(product);
+      res.status(responseCodesEnum.OK).json(product);
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  setProduct: async (req, res, next) => {
+    try {
+      await productService.createProduct(req.body);
+
+      res.status(responseCodesEnum.CREATED).json(messagesEnum.PRODUCT_CREATED);
     } catch (e) {
       next(e);
     }

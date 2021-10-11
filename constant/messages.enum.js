@@ -40,4 +40,12 @@ module.exports = {
     ua: 'Ваше замовлення прийняте в обробку',
     ru: 'Ваш заказ принят в обработку'
   },
+
+  // PRODUCT
+
+  PRODUCT_CREATED: {
+    en: 'New product has been created',
+    ua: 'Новий продукт створено',
+    ru: 'Новый продукт создан'
+  },
 };

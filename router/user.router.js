@@ -4,12 +4,12 @@ const { userController } = require('../controller');
 const { authMiddleware, userMiddleware } = require('../middleware');
 
 router.route('/')
+  .get(userController.getUsers)
   .post(
     userMiddleware.isUserValid,
     userMiddleware.doesUserAlreadyExist,
     userController.registerUser
-  )
-  .get(userController.getUsers);
+  );
 
 // router.route('/:userId')
 //   .all(userMiddleware.isUserIdValid)
