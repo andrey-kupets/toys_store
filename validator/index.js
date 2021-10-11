@@ -1,4 +1,6 @@
 module.exports = {
-  userValidators: require('./user'),
+  authValidators: require('./auth'),
   mutualValidators: require('./mutual'),
+  userValidators: require('./user'),
+  productValidators: require('./product'),
 };

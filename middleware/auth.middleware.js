@@ -5,8 +5,27 @@ const { constants: { AUTHORIZATION } } = require('../constant');
 const { authService } = require('../service');
 const { responseCodesEnum } = require('../constant');
 const { errorMsg, ErrorHandler } = require('../error');
+const { authValidators } = require('../validator');
 
 module.exports = {
+  isAuthValid: (req, res, next) => {
+    try {
+      const { error } = authValidators.authValidator.validate(req.body);
+
+      if (error) {
+        throw new ErrorHandler(
+          responseCodesEnum.BAD_REQUEST,
+          errorMsg.JOI_VALIDATION.customCode,
+          error.details[0].message // Joi error
+        );
+      }
+
+      next();
+    } catch (e) {
+      next(e);
+    }
+  },
+
   checkAccessToken: async (req, res, next) => {
     try {
       const access_token = req.get(AUTHORIZATION);
