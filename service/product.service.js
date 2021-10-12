@@ -61,6 +61,8 @@ module.exports = {
     };
   },
 
+  findProductByName: (name) => Product.findOne(name),
+
   findProductById: (productId) => Product.findById(productId),
   // findProductInCart: (filteredArr) => Product.find({ $in: filteredArr }),
 

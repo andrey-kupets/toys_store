@@ -86,6 +86,15 @@ module.exports = {
     customCode: 40016
   },
 
+  // PRODUCT
+  INCORRECT_PRODUCT: {
+    customCode: 40017
+  },
+
+  PRODUCT_ALREADY_EXISTS: {
+    customCode: 40018
+  },
+
   // UNAUTHORIZED - AUTH
   UNAUTHORIZED: {
     customCode: 4010
