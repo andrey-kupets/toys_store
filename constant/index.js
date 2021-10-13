@@ -5,4 +5,5 @@ module.exports = {
   messagesEnum: require('./messages.enum'),
   regExpEnum: require('./regExp.enum'),
   responseCodesEnum: require('./responseCodes.enum'),
+  userRolesEnum: require('./userRoles.enum'),
 };
