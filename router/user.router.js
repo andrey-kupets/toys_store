@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const { userController } = require('../controller');
 const { authMiddleware, userMiddleware } = require('../middleware');
+const { ADMIN, CUSTOMER, SUPER_ADMIN } = require('../constant/userRoles.enum');
 
 router.route('/')
   .get(userController.getUsers)
@@ -23,9 +24,12 @@ router.route('/')
 //     userController.updateUser);
 
 router.use('/:userId', userMiddleware.isUserIdValid);
-router.get('/:userId', userController.getUserById);
+router.get('/:userId',
+  userMiddleware.checkUserExistenceByDynamicParams('userId', 'params', '_id'),
+  userController.getUserById);
 router.delete('/:userId',
   authMiddleware.checkAccessToken,
+  userMiddleware.checkUserRoleAccess(ADMIN, CUSTOMER, SUPER_ADMIN),
   userController.removeUserById);
 
 router.put('/:userId',

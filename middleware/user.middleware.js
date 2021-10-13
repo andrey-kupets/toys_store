@@ -164,4 +164,26 @@ module.exports = {
       next(e);
     }
   },
+
+  // for possible future using
+  checkUserExistenceByDynamicParams: (paramName, searchIn = 'body', dbField = paramName) => async (req, res, next) => {
+    try {
+      const value = req[searchIn][paramName];
+
+      const userByParams = await userService.findUser({ [dbField]: value });
+
+      if (!userByParams) {
+        throw new ErrorHandler(
+          responseCodesEnum.BAD_REQUEST,
+          errorMsg.NO_USER.customCode
+        );
+      }
+
+      req.user = userByParams;
+
+      next();
+    } catch (e) {
+      next(e);
+    }
+  },
 };
