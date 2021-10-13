@@ -117,6 +117,10 @@ module.exports = {
     customCode: 4032
   },
 
+  ACCESS_DENIED: {
+    customCode: 4033
+  },
+
   // NOT FOUND
   RECORD_NOT_FOUND: {
     customCode: 4041

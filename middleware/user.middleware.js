@@ -145,4 +145,23 @@ module.exports = {
       next(e);
     }
   },
+
+  checkUserRoleAccess: (userRolesArr = []) => (req, res, next) => {
+    try {
+      const { role } = req.user;
+
+      if (!userRolesArr.length) return next();
+
+      if (!userRolesArr.includes(role)) {
+        throw new ErrorHandler(
+          responseCodesEnum.FORBIDDEN,
+          errorMsg.ACCESS_DENIED.customCode
+        );
+      }
+
+      next();
+    } catch (e) {
+      next(e);
+    }
+  },
 };
