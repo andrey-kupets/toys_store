@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const {
- authRouter, orderRouter, productRouter, userRouter
+  authRouter, orderRouter, productRouter, userRouter
 } = require('.');
 
 router.use('/auth', authRouter);
