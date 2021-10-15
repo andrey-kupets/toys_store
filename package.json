@@ -9,18 +9,24 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.1008.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "email-templates": "^8.0.7",
     "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
     "joi": "^17.4.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.12",
     "nodemailer": "^6.6.3",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/email-templates": "^8.0.4",
+    "@types/express-fileupload": "^1.1.7",
+    "@types/nodemailer": "^6.4.4",
     "eslint": "^7.27.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.3",
@@ -28,9 +34,7 @@
     "eslint-plugin-promise": "^5.1.0",
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
-    "nodemon": "^2.0.13",
-    "@types/email-templates": "^8.0.4",
-    "@types/nodemailer": "^6.4.4"
+    "nodemon": "^2.0.13"
   },
   "lint-staged": {
     "*.{js, json}": [
