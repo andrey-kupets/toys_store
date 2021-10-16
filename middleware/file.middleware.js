@@ -11,6 +11,7 @@ const {
 const {
   DOC_IS_TOO_LARGE,
   NOT_VALID_FILE,
+  NOT_VALID_PHOTO_TYPE,
   PHOTO_IS_TOO_LARGE,
   VIDEO_IS_TOO_LARGE
 } = require('../error/error.messages');
@@ -59,5 +60,27 @@ module.exports = {
     } catch (e) {
       next(e);
     }
-  }
+  },
+
+  checkPhotoForProductImage: (req, res, next) => {
+    try {
+      const { files } = req;
+
+      for (let i = 0; i < req.photos.length; i++) {
+        const allFilesValues = Object.values(files);
+        const allFilesKeys = Object.keys(files);
+        const { mimetype } = allFilesValues[i];
+
+        if (PHOTOS_MIMETYPES.includes(mimetype) && allFilesKeys[i] !== 'img') {
+          throw new ErrorHandler(responseCodesEnum.BAD_REQUEST, NOT_VALID_PHOTO_TYPE.customCode);
+        }
+      }
+
+      [req.img] = req.photos;
+
+      next();
+    } catch (e) {
+      next(e);
+    }
+  },
 };
