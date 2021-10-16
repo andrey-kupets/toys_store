@@ -67,4 +67,6 @@ module.exports = {
   // findProductInCart: (filteredArr) => Product.find({ $in: filteredArr }),
 
   createProduct: (body) => Product.create(body),
+
+  updateProductById: (productId, updatingObj) => Product.findByIdAndUpdate(productId, updatingObj),
 };

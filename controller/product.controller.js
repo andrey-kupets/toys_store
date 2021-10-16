@@ -1,5 +1,10 @@
 const { productService } = require('../service');
-const { responseCodesEnum, messagesEnum } = require('../constant');
+const {
+  filesDirectoriesEnum: { PHOTOS_DIR, PRODUCT_DIR },
+  responseCodesEnum,
+  messagesEnum
+} = require('../constant');
+const { filesHandler } = require('../helper');
 
 module.exports = {
   getProducts: async (req, res, next) => {
@@ -26,7 +31,15 @@ module.exports = {
 
   setProduct: async (req, res, next) => {
     try {
-      await productService.createProduct(req.body);
+      const { img } = req;
+
+      const product = await productService.createProduct(req.body);
+
+      if (img) {
+        const uploadPath = await filesHandler.uploadProductImg(PRODUCT_DIR, PHOTOS_DIR, img, product._id);
+
+        await productService.updateProductById(product._id, { img: uploadPath });
+      }
 
       res.status(responseCodesEnum.CREATED).json(messagesEnum.PRODUCT_CREATED);
     } catch (e) {
