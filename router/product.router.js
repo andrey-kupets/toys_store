@@ -13,7 +13,7 @@ router.route('/')
   .get(productController.getProducts)
   .post(
     fileMiddleware.checkFile,
-    fileMiddleware.checkPhotoForProductImage, // optional
+    fileMiddleware.checkPhotoForProductCardPrimaryImage, // optional
     productMiddleware.isProductValid,
     productMiddleware.doesProductAlreadyExist,
     authMiddleware.checkAccessToken,

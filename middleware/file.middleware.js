@@ -62,7 +62,7 @@ module.exports = {
     }
   },
 
-  checkPhotoForProductImage: (req, res, next) => {
+  checkPhotoForProductCardPrimaryImage: (req, res, next) => {
     try {
       const { files } = req;
 
