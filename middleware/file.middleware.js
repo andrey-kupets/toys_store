@@ -64,7 +64,12 @@ module.exports = {
 
   checkPhotoForProductCardPrimaryImage: (req, res, next) => {
     try {
-      const { files } = req;
+      const { files, files: { img } } = req;
+
+      if (!img) {
+        next();
+        return;
+      }
 
       for (let i = 0; i < req.photos.length; i++) {
         const allFilesValues = Object.values(files);

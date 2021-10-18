@@ -21,7 +21,7 @@ const userScheme = new Schema({
 }, { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
 userScheme.virtual('client_status').get(function() {
-  return `${this.name}: [${this.role}]`;
+  return `${this.name}[${this.role}]`;
 });
 
 userScheme.virtual('_productsInCart', {
