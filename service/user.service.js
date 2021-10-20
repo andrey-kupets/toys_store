@@ -26,7 +26,7 @@ module.exports = {
   createUser: (body) => User.create(body),
 
   // deleteUserById: (userId) => User.deleteOne({ _id: userId }),
-  deleteUserById: (userId) => User.findByIdAndDelete({ _id: userId }),
+  deleteUserById: (userId) => User.findByIdAndDelete(userId),
 
   // updateOneUser: (userId, updatingObj) => User.updateOne({ _id: userId }, { $set: updatingObj }),
   // updateOneUser: (userId, updatingObj) => User.findOneAndUpdate({ _id: userId }, updatingObj), // simpler

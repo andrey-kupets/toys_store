@@ -1,10 +1,10 @@
-const { productService } = require('../service');
+const { productService, s3Service } = require('../service');
 const {
-  filesDirectoriesEnum: { PHOTOS_DIR, PRODUCT_DIR },
+  // filesDirectoriesEnum: { PHOTOS_DIR, PRODUCT_DIR },
   responseCodesEnum,
   messagesEnum
 } = require('../constant');
-const { filesHandler } = require('../helper');
+// const { filesHandler } = require('../helper');
 
 module.exports = {
   getProducts: async (req, res, next) => {
@@ -31,15 +31,19 @@ module.exports = {
 
   setProduct: async (req, res, next) => {
     try {
-      const { img } = req;
+      const { img } = req.files;
 
-      const product = await productService.createProduct(req.body);
+      // FOR 'STATIC'
+      // const product = await productService.createProduct(req.body); // for 'static'
 
-      if (img) {
-        const uploadPath = await filesHandler.uploadProductImg(PRODUCT_DIR, PHOTOS_DIR, img, product._id);
+      // if (img) {
+      //   const uploadPath = await filesHandler.uploadProductImg(PRODUCT_DIR, PHOTOS_DIR, img, product._id);
+      //
+      //   await productService.updateProductById(product._id, { img: uploadPath });
+      // }
 
-        await productService.updateProductById(product._id, { img: uploadPath });
-      }
+      // FOR AWS-BUCKET
+      await s3Service.uploadFile(img, 'products', 'ttt');
 
       res.status(responseCodesEnum.CREATED).json(messagesEnum.PRODUCT_CREATED);
     } catch (e) {

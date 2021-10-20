@@ -19,11 +19,13 @@ module.exports = {
 
     const fileName = _fileNameBuilder(name, itemType, itemId.toString());
 
-    return bucket.upload({
+    return bucket
+      .upload({
       Bucket: AWS_S3_NAME,
       Body: data,
       Key: fileName,
-      ContentType: mimetype
+      ContentType: mimetype,
+      ACL: 'public-read', // for front file-reading
     }).promise();
   },
 
@@ -38,7 +40,9 @@ module.exports = {
 };
 
 function _fileNameBuilder(fileName, itemType, itemId) {
-  const fileExtension = path.extname(fileName);
+  // const fileExtension = fileName.split('.').pop();
+  const fileExtension = path.extname(fileName); // without '.'
 
-  return path.join(itemType, itemId, `${uuid()}${fileExtension}`);
+  // return path.join(itemType, itemId,`${uuid()}${fileExtension}`); // IN WINDOWS - IT'S A BUG CAUSE OF REVERTED SLASHES IN URL
+  return `${itemType}/${itemId}/${uuid()}${fileExtension}`;
 }
