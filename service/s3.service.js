@@ -25,7 +25,7 @@ module.exports = {
       Body: data,
       Key: fileName,
       ContentType: mimetype,
-      ACL: 'public-read', // for front file-reading
+      ACL: 'public-read', // for front file-reading but with enabled all permissions in aws
     }).promise();
   },
 

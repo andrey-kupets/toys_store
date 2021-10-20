@@ -68,5 +68,5 @@ module.exports = {
 
   createProduct: (body) => Product.create(body),
 
-  updateProductById: (productId, updatingObj) => Product.findByIdAndUpdate(productId, updatingObj),
+  updateProductById: (productId, updatingObj) => Product.findByIdAndUpdate(productId, updatingObj, { new: true }),
 };
