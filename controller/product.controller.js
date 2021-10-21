@@ -4,6 +4,7 @@ const {
   responseCodesEnum,
   // messagesEnum
 } = require('../constant');
+const { PRODUCT_DIR } = require('../constant/files.directories.enum');
 // const { filesHandler } = require('../helper');
 
 module.exports = {
@@ -44,7 +45,7 @@ module.exports = {
 
       // FOR AWS-BUCKET
       if (req.files && req.files.img) {
-        const s3Response = await s3Service.uploadFile(img, 'products', 'ttt'); // todo normal id
+        const s3Response = await s3Service.uploadFile(img, PRODUCT_DIR, createdProduct._id); // todo normal id
         createdProduct = await productService.updateProductById(
           createdProduct._id,
           { img: s3Response.Location }
