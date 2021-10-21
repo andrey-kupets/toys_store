@@ -43,7 +43,7 @@ module.exports = {
       // }
 
       // FOR AWS-BUCKET
-      if (req.files) {
+      if (req.files && req.files.img) {
         const s3Response = await s3Service.uploadFile(img, 'products', 'ttt'); // todo normal id
         createdProduct = await productService.updateProductById(
           createdProduct._id,

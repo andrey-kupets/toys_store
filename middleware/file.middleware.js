@@ -64,9 +64,9 @@ module.exports = {
 
   checkPhotoForProductCardPrimaryImage: (req, res, next) => {
     try {
-      const { files, files: { img } } = req;
+      const { files } = req;
 
-      if (!img) {
+      if (!files || !files.img) {
         next();
         return;
       }
