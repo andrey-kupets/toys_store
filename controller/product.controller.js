@@ -33,7 +33,6 @@ module.exports = {
   setProduct: async (req, res, next) => {
     try {
       const { img } = req.files;
-
       let createdProduct = await productService.createProduct(req.body);
 
       // FOR 'STATIC'
@@ -42,13 +41,12 @@ module.exports = {
       //
       //   await productService.updateProductById(product._id, { img: uploadPath });
       // }
-
       // FOR AWS-BUCKET
-      if (req.files && req.files.img) {
-        const s3Response = await s3Service.uploadFile(img, PRODUCT_DIR, createdProduct._id); // todo normal id
+      if (req.files || req.files.img) {
+        const s3Response = await s3Service.uploadFile(img, PRODUCT_DIR, createdProduct._id);
         createdProduct = await productService.updateProductById(
           createdProduct._id,
-          { img: s3Response.Location }
+          { img: s3Response.Location },
         );
       }
 

@@ -20,6 +20,8 @@ module.exports = {
   checkFile: (req, res, next) => {
     try {
       const { files } = req;
+      if (!files) return next();
+
       const docs = [];
       const photos = [];
       const videos = [];
@@ -65,7 +67,6 @@ module.exports = {
   checkPhotoForProductCardPrimaryImage: (req, res, next) => {
     try {
       const { files } = req;
-
       if (!files || !files.img) {
         next();
         return;

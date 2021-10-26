@@ -1,7 +1,7 @@
 const { responseCodesEnum } = require('../constant');
 const { errorMsg, ErrorHandler } = require('../error');
 const { productValidators, mutualValidators } = require('../validator');
-const { productService, userService } = require('../service');
+const { productService } = require('../service');
 
 module.exports = {
   isProductValid: (req, res, next) => {
@@ -13,7 +13,7 @@ module.exports = {
         type
       } = req.body;
 
-      if (!name || !category || !price || !type) {
+      if (name === '' || category === '' || price === '' || type === '') {
         throw new ErrorHandler(
           responseCodesEnum.BAD_REQUEST,
           errorMsg.EMPTY.customCode
