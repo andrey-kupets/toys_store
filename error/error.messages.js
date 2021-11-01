@@ -125,4 +125,9 @@ module.exports = {
   RECORD_NOT_FOUND: {
     customCode: 4041
   },
+
+  // WRONG TOKEN TYPE
+  WRONG_TOKEN_TYPE: {
+    customCode: 5001
+  },
 };

@@ -3,11 +3,11 @@ const { dbCollectionsEnum: { O_AUTH, USER } } = require('../constant');
 
 const o_AuthScheme = new Schema({
   access_token: {
-    type: String
+    type: String,
     required: true
   },
   refresh_token: {
-    type: String
+    type: String,
     required: true
   },
   _user_id: {
