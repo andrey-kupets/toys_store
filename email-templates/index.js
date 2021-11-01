@@ -13,6 +13,10 @@ module.exports = {
     templateName: 'yyy',
     subject: 'Your password was changed successfully.'
   },
+  [emailActionsEnum.REGISTRATION_ACCEPT]: {
+    templateName: 'registration-accept',
+    subject: 'You will be registered after link clicking!'
+  },
   [emailActionsEnum.REGISTRATION]: {
     templateName: 'registration',
     subject: 'Congratulations with registration!'

@@ -21,6 +21,7 @@ module.exports = Joi.object({
   description: Joi.string()
     // .alphanum()
     // .min(2)
+    .min(0)
     .max(500),
   img: Joi.string()
     .alphanum()

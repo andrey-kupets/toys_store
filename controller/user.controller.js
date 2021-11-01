@@ -1,6 +1,8 @@
 const { emailActionsEnum, messagesEnum, responseCodesEnum } = require('../constant');
 const { passwordHasher } = require('../helper');
-const { mailService, userService } = require('../service');
+const { mailService, userService, authService } = require('../service');
+const { FRONT_URL } = require('../config');
+
 
 module.exports = {
   getUsers: async (req, res, next) => {
@@ -32,14 +34,19 @@ module.exports = {
       const { email, name, password } = req.body;
 
       const hashPassword = await passwordHasher.hash(password);
+      console.log(FRONT_URL);
+      // const tokens = await authService.createRecord(req.user._id);
+      // await mailService.sendMail(email, emailActionsEnum.REGISTRATION_ACCEPT,
+      //   { userName: name, frontURL: FRONT_URL, access_token: 'wwwwwwwwwwwwwwwwwwwwwww' });
 
       await userService.createUser({ ...req.body, password: hashPassword });
+// https://myaccount.google.com/lesssecureapps - поставить галочку
 
-      // https://myaccount.google.com/lesssecureapps - поставить галочку
-      await mailService.sendMail(email, emailActionsEnum.REGISTRATION, { userName: name });
+      // await mailService.sendMail(email, emailActionsEnum.REGISTRATION, { userName: name });
 
       res.status(responseCodesEnum.CREATED)
         .json(messagesEnum.USER_CREATED);
+        // .json({ user: req.user });
     } catch (e) {
       next(e);
     }

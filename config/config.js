@@ -1,6 +1,7 @@
 module.exports = {
   PORT: 5000,
   MONGO_URL: process.env.MONGO_URL,
+  FRONT_URL: process.env.FRONT_URL,
   JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET || 'JWT_ACCESS_SECRET',
   JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET || 'JWT_REFRESH_SECRET',
   ROOT_EMAIL: process.env.ROOT_EMAIL || 'test.gmail.com',
