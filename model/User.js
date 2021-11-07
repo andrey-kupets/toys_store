@@ -13,6 +13,7 @@ const userScheme = new Schema({
   email: { type: String, required: true },
   password: { type: String, required: true, select: false },
   role: { type: String, default: 'customer' },
+  status: { type: String, default: 'non-activated' },
   _cart: [cartSubScheme], // 1st way
   // _cart: [{ type: Schema.Types.ObjectId }], // 2nd way - ONLY this one fits '.aggregate' cause id is ObjectId in Mongo
   // _cart: [{ type: Schema.Types.Mixed }], // 3rd way
@@ -20,7 +21,7 @@ const userScheme = new Schema({
   _wishlist: [{ type: Schema.Types.ObjectId }]
 }, { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
-userScheme.virtual('client_status').get(function() {
+userScheme.virtual('client_role').get(function() {
   return `${this.name}[${this.role}]`;
 });
 

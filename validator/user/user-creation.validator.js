@@ -28,7 +28,7 @@ module.exports = Joi.object({
   email: Joi.string().regex(regExpEnum.EMAIL_REGEXP).required(),
   password: Joi.string().regex(regExpEnum.PASSWORD_REGEXP).required(),
   role: Joi.string().default('customer'),
-  // _products: Joi.any(),
+  status: Joi.string().default('non-activated'),
   _cart: cartSubScheme,
   _wishlist: wishlistSubScheme,
 });

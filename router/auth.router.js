@@ -22,10 +22,4 @@ router.post(
   authController.logoutUser
 );
 
-router.post( // todo controller for activation by email accept
-  '/register/activate/send',
-  authMiddleware.checkRefreshToken,
-  authController.refreshToken
-);
-
 module.exports = router;

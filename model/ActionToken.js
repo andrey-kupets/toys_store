@@ -6,7 +6,7 @@ const ActionTokenScheme = new Schema({
     type: String,
     required: true
   },
-  _user_id: {
+  user: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: USER

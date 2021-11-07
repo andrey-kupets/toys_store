@@ -9,7 +9,7 @@ module.exports = {
     try {
       const { email, name, password } = req.body;
 
-      if (name === '' || email === '' || password === '') {
+      if (name === '' || email === '' || password === '') { // optional
         throw new ErrorHandler(
           responseCodesEnum.BAD_REQUEST,
           errorMsg.EMPTY.customCode

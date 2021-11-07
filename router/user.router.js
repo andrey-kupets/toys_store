@@ -23,10 +23,13 @@ router.route('/')
 //     authMiddleware.checkAccessToken,
 //     userController.updateUser);
 
-router.use('/:userId', userMiddleware.isUserIdValid);
+router.use('/:userId',
+  userMiddleware.isUserIdValid,
+  userMiddleware.checkUserExistenceByDynamicParams('userId', 'params', '_id'));
+
 router.get('/:userId',
-  userMiddleware.checkUserExistenceByDynamicParams('userId', 'params', '_id'),
   userController.getUserById);
+
 router.delete('/:userId',
   authMiddleware.checkAccessToken,
   userMiddleware.checkUserRoleAccess(ADMIN, CUSTOMER, SUPER_ADMIN),

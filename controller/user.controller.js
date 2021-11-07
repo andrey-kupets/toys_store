@@ -1,7 +1,13 @@
-const { emailActionsEnum, messagesEnum, responseCodesEnum } = require('../constant');
+const {
+  emailActionsEnum,
+  messagesEnum,
+  responseCodesEnum,
+  actionTokensEnum
+} = require('../constant');
 const { passwordHasher } = require('../helper');
-const { mailService, userService, authService } = require('../service');
+const { mailService, userService, jwtService } = require('../service');
 const { FRONT_URL } = require('../config');
+const { ActionToken } = require('../model');
 
 module.exports = {
   getUsers: async (req, res, next) => {
@@ -34,23 +40,27 @@ module.exports = {
 
       const hashPassword = await passwordHasher.hash(password);
 
-      // const frontURL = FRONT_URL; // const is not passed to .pug if required(exported) from another file
-      // const { access_token } = await authService.createRecord(req.user._id);
-      // await mailService.sendMail(email, emailActionsEnum.REGISTRATION_ACCEPT,
-      //   { userName: name, frontURL, access_token });
-
-      await userService.createUser({ ...req.body, password: hashPassword });
+      const user = await userService.createUser({ ...req.body, password: hashPassword });
 
       // https://myaccount.google.com/lesssecureapps - поставить галочку
       await mailService.sendMail(email, emailActionsEnum.REGISTRATION, { userName: name });
 
+      const actionToken = jwtService.generateActionToken(actionTokensEnum.REGISTER_ACTIVATE);
+
+      await ActionToken.create({ token: actionToken, user: user._id });
+
+      const frontUrl = FRONT_URL;
+      await mailService.sendMail(email, emailActionsEnum.REGISTER_ACTIVATE,
+        { userName: name, frontUrl, actionToken });
+
       res.status(responseCodesEnum.CREATED)
-        .json(messagesEnum.USER_CREATED);
-      // .json({ user: req.user });
+        // .json(messagesEnum.USER_CREATED);
+        .json({ user });
     } catch (e) {
       next(e);
     }
   },
+
 
   removeUserById: async (req, res, next) => {
     try {
@@ -84,5 +94,5 @@ module.exports = {
     } catch (e) {
       next(e);
     }
-  }
+  },
 };

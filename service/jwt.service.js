@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const { JWT_ACTION_SECRET } = require('../config');
+const { JWT_REGISTER_ACTIVATE_SECRET } = require('../config');
 const { responseCodesEnum, actionTokensEnum } = require('../constant');
 const { errorMsg, ErrorHandler } = require('../error');
 
@@ -23,7 +23,7 @@ function _getSecretWordForActionToken(actionType) {
 
   switch (actionType) {
     case actionTokensEnum.REGISTER_ACTIVATE:
-      secretWord = JWT_ACTION_SECRET;
+      secretWord = JWT_REGISTER_ACTIVATE_SECRET;
       break;
     case 'forgot_pass': // for ex. in future
       secretWord = 'forgot_pass_secret';

@@ -9,12 +9,16 @@ module.exports = {
     templateName: 'xxx',
     subject: 'Your account was deleted.'
   },
+  [emailActionsEnum.FORGOT_PASS]: {
+    templateName: 'qqq',
+    subject: 'You can assign a new password now.'
+  },
   [emailActionsEnum.PASSWORD_CHANGING]: {
     templateName: 'yyy',
     subject: 'Your password was changed successfully.'
   },
-  [emailActionsEnum.REGISTRATION_ACCEPT]: {
-    templateName: 'registration-accept',
+  [emailActionsEnum.REGISTER_ACTIVATE]: {
+    templateName: 'register-activate',
     subject: 'You will be registered after link clicking!'
   },
   [emailActionsEnum.REGISTRATION]: {

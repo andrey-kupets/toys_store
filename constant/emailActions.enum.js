@@ -1,7 +1,8 @@
 module.exports = {
   ACCOUNT_BLOCKING: 'account-blocking',
   ACCOUNT_DELETION: 'account-deletion',
-  REGISTRATION_ACCEPT: 'registration-accept',
+  FORGOT_PASS: 'forgot-pass',
+  REGISTER_ACTIVATE: 'register-activate',
   REGISTRATION: 'registration',
   PASSWORD_CHANGING: 'password-changing',
 };
