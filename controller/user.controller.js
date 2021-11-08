@@ -44,17 +44,15 @@ module.exports = {
 
       const user = await userService.createUser({ ...req.body, password: hashPassword });
 
-      // https://myaccount.google.com/lesssecureapps - поставить галочку
-      await mailService.sendMail(email, emailActionsEnum.REGISTRATION, { userName: name });
-
       const actionToken = jwtService.generateActionToken(actionTokensEnum.REGISTER_ACTIVATE);
 
       await ActionToken.create({ token: actionToken, user: user._id });
 
-      await mailService.sendMail( // todo take out to a new route
+      // https://myaccount.google.com/lesssecureapps - поставить галочку
+      await mailService.sendMail(
         email,
-        emailActionsEnum.REGISTER_ACTIVATE,
-        { name, frontUrl: `${frontUrl}/register/activate?token=${actionToken}` }
+        emailActionsEnum.REGISTRATION,
+          { name, frontUrl: `${frontUrl}/register/activate?token=${actionToken}` }
       );
 
       res.status(responseCodesEnum.CREATED)

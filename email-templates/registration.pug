@@ -1,6 +1,8 @@
 extends template
 block mail-content
     div
-        | Hello, dear #{userName}!
+        | Hello, dear #{user}!
         br
-        | Welcome on board! You must activate one's register in the next email.
+        | Welcome on board! You must activate your profile by next link clicking:
+        br
+        a(href=frontUrl) follow the link
