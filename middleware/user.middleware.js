@@ -1,8 +1,10 @@
 const { passwordHasher } = require('../helper');
 const { responseCodesEnum } = require('../constant');
 const { errorMsg, ErrorHandler } = require('../error');
-const { userService } = require('../service');
+const { userService, actionTokenService } = require('../service');
 const { mutualValidators, userValidators } = require('../validator');
+const { verifyActionToken } = require('../service/jwt.service');
+const { AUTHORIZATION } = require('../constant/constants');
 
 module.exports = {
   isUserValid: (req, res, next) => {
@@ -181,6 +183,41 @@ module.exports = {
       }
 
       req.user = userByParams;
+
+      next();
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  checkActionToken: (tokenType) => async (req, res, next) => {
+    try {
+      const action_token = req.get(AUTHORIZATION);
+
+      if (!action_token) {
+        throw new ErrorHandler(
+          responseCodesEnum.BAD_REQUEST,
+          errorMsg.ACTION_TOKEN_IS_REQUIRED.customCode
+        );
+      }
+
+      await verifyActionToken(action_token, tokenType);
+
+      const tokenFromDB = await actionTokenService.findTokensByParams({ token: action_token }).populate('user');
+
+      if (!tokenFromDB) {
+        throw new ErrorHandler(
+          // FORBIDDEN
+          responseCodesEnum.FORBIDDEN,
+          errorMsg.ACTION_TOKEN_IS_NOT_VALID.customCode
+
+          // or NOT_FOUND
+          // responseCodesEnum.NOT_FOUND,
+          // errorMsg.RECORD_NOT_FOUND.customCode
+        );
+      }
+
+      req.activatedUserInfo = tokenFromDB;
 
       next();
     } catch (e) {

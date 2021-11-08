@@ -11,7 +11,7 @@ module.exports = {
     return jwt.sign({}, secretWord, { expiresIn: '7d' });
   },
 
-  verifyActionToken: (actionType, token) => {
+  verifyActionToken: (token, actionType) => {
     const secretWord = _getSecretWordForActionToken(actionType);
 
     return jwt.verify(token, secretWord);

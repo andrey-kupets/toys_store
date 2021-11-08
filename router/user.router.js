@@ -3,6 +3,7 @@ const router = require('express').Router();
 const { userController } = require('../controller');
 const { authMiddleware, userMiddleware } = require('../middleware');
 const { ADMIN, CUSTOMER, SUPER_ADMIN } = require('../constant/userRoles.enum');
+const { actionTokensEnum } = require('../constant');
 
 router.route('/')
   .get(userController.getUsers)
@@ -10,6 +11,14 @@ router.route('/')
     userMiddleware.isUserValid,
     userMiddleware.doesUserAlreadyExist,
     userController.registerUser
+  );
+
+router.route('/register/activate')
+  .put(
+    // userMiddleware.isUserIdValid,
+    // userMiddleware.checkUserExistenceByDynamicParams('userId', 'params', '_id'),
+    userMiddleware.checkActionToken(actionTokensEnum.REGISTER_ACTIVATE),
+    userController.registerActivate
   );
 
 // router.route('/:userId')

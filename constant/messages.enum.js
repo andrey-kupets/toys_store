@@ -33,6 +33,12 @@ module.exports = {
     ru: 'Ваш профиль успешно удалён'
   },
 
+  USER_ACTIVATED: {
+    en: 'Your profile has been activated successfully',
+    ua: 'Ваш профіль успішно активовано',
+    ru: 'Ваш профиль успешно активирован'
+  },
+
   // ORDER
 
   ORDER_GENERATED: {

@@ -9,6 +9,8 @@ const { mailService, userService, jwtService } = require('../service');
 const { FRONT_URL } = require('../config');
 const { ActionToken } = require('../model');
 
+const frontUrl = FRONT_URL;
+
 module.exports = {
   getUsers: async (req, res, next) => {
     try {
@@ -49,9 +51,11 @@ module.exports = {
 
       await ActionToken.create({ token: actionToken, user: user._id });
 
-      const frontUrl = FRONT_URL;
-      await mailService.sendMail(email, emailActionsEnum.REGISTER_ACTIVATE,
-        { userName: name, frontUrl, actionToken });
+      await mailService.sendMail( // todo take out to a new route
+        email,
+        emailActionsEnum.REGISTER_ACTIVATE,
+        { name, frontUrl: `${frontUrl}/register/activate?token=${actionToken}` }
+      );
 
       res.status(responseCodesEnum.CREATED)
         // .json(messagesEnum.USER_CREATED);
@@ -61,6 +65,18 @@ module.exports = {
     }
   },
 
+  registerActivate: async (req, res, next) => {
+    // const { activatedUserInfo } = req;
+
+    try {
+      // todo updateUser - activatedUserInfo with delete token
+
+      res.status(responseCodesEnum.OK)
+        .json(messagesEnum.USER_ACTIVATED);
+    } catch (e) {
+      next(e);
+    }
+  },
 
   removeUserById: async (req, res, next) => {
     try {

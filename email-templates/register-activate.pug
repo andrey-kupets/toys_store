@@ -1,7 +1,7 @@
 extends template
 block mail-content
     div
-        | Hello, dear #{userName}!
+        | Hello, dear #{name}!
         br
-        | Please click this link for registration accept:
-        a(href='#{frontUrl}/profile?token=#{actionToken}')
+        | Please click this link for register activation:
+        a(href=#{frontUrl})

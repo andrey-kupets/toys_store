@@ -22,6 +22,10 @@ module.exports = {
     customCode: 4004
   },
 
+  ACTION_TOKEN_IS_REQUIRED: {
+    customCode: 40019
+  },
+
   // BAD REQUEST - MAIL SERVICE
   INCORRECT_ACTION: {
     customCode: 4005,
@@ -108,6 +112,10 @@ module.exports = {
     customCode: 4012
   },
 
+  ACTION_TOKEN_IS_NOT_VALID: {
+    customCode: 4013
+  },
+
   // AUTH - FORBIDDEN
   ACCESS_TOKEN_IS_NOT_VALID_VERIFY: {
     customCode: 4031
@@ -115,6 +123,10 @@ module.exports = {
 
   REFRESH_TOKEN_IS_NOT_VALID_VERIFY: {
     customCode: 4032
+  },
+
+  ACTION_TOKEN_IS_NOT_VALID_VERIFY: {
+    customCode: 4034
   },
 
   ACCESS_DENIED: {
