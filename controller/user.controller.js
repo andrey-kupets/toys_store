@@ -9,8 +9,6 @@ const { mailService, userService, jwtService } = require('../service');
 const { FRONT_URL } = require('../config');
 const { ActionToken } = require('../model');
 
-const frontUrl = FRONT_URL;
-
 module.exports = {
   getUsers: async (req, res, next) => {
     try {
@@ -52,7 +50,7 @@ module.exports = {
       await mailService.sendMail(
         email,
         emailActionsEnum.REGISTRATION,
-          { name, frontUrl: `${frontUrl}/register/activate?token=${actionToken}` }
+          { name, frontUrl: `${FRONT_URL}/register/activate?token=${actionToken}` }
       );
 
       res.status(responseCodesEnum.CREATED)
