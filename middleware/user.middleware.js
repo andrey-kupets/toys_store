@@ -104,7 +104,7 @@ module.exports = {
       const { email, password } = req.body;
       const user = await userService.findUserByEmail({ email }).select('+password');
 
-      if (email === '' || password === '') {
+      if (email === '' || password === '') { // optional
         throw new ErrorHandler(
           responseCodesEnum.BAD_REQUEST,
           errorMsg.EMPTY.customCode

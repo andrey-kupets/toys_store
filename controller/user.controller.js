@@ -5,7 +5,12 @@ const {
   actionTokensEnum
 } = require('../constant');
 const { passwordHasher } = require('../helper');
-const { mailService, userService, jwtService } = require('../service');
+const {
+  mailService,
+  userService,
+  jwtService,
+  actionTokenService
+} = require('../service');
 const { FRONT_URL } = require('../config');
 const { ActionToken } = require('../model');
 
@@ -50,7 +55,7 @@ module.exports = {
       await mailService.sendMail(
         email,
         emailActionsEnum.REGISTRATION,
-          { name, frontUrl: `${FRONT_URL}/register/activate?token=${actionToken}` }
+        { name, frontUrl: `${FRONT_URL}/register/activate?token=${actionToken}` }
       );
 
       res.status(responseCodesEnum.CREATED)
@@ -62,10 +67,11 @@ module.exports = {
   },
 
   registerActivate: async (req, res, next) => {
-    // const { activatedUserInfo } = req;
-
     try {
-      // todo updateUser - activatedUserInfo with delete token
+      const { activatedUserInfo: { token, user } } = req;
+
+      await userService.updateOneUser(user._id, { status: 'activated' });
+      await actionTokenService.deleteActionToken({ token });
 
       res.status(responseCodesEnum.OK)
         .json(messagesEnum.USER_ACTIVATED);
