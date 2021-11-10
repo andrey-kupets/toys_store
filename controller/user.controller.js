@@ -71,6 +71,11 @@ module.exports = {
       const { activatedUserInfo: { token, user } } = req;
 
       await userService.updateOneUser(user._id, { status: 'activated' });
+      await mailService.sendMail(
+        user.email,
+        emailActionsEnum.REGISTER_ACTIVATE,
+        { name: user.name }
+      );
       await actionTokenService.deleteActionToken({ token });
 
       res.status(responseCodesEnum.OK)

@@ -4,7 +4,7 @@ const { errorMsg, ErrorHandler } = require('../error');
 const { userService, actionTokenService } = require('../service');
 const { mutualValidators, userValidators } = require('../validator');
 const { verifyActionToken } = require('../service/jwt.service');
-const { AUTHORIZATION } = require('../constant/constants');
+const { REGISTER } = require('../constant/constants');
 
 module.exports = {
   isUserValid: (req, res, next) => {
@@ -192,7 +192,7 @@ module.exports = {
 
   checkActionToken: (tokenType) => async (req, res, next) => {
     try {
-      const action_token = req.get(AUTHORIZATION);
+      const action_token = req.get(REGISTER);
 
       if (!action_token) {
         throw new ErrorHandler(

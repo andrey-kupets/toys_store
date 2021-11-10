@@ -19,10 +19,10 @@ module.exports = {
   },
   [emailActionsEnum.REGISTER_ACTIVATE]: {
     templateName: 'register-activate',
-    subject: 'You will be registered after link clicking!'
+    subject: 'Congratulations on your profile activation!'
   },
   [emailActionsEnum.REGISTRATION]: {
-    templateName: 'registration',
-    subject: 'Congratulations with registration!'
+    templateName: 'register',
+    subject: 'Congratulations on your register!'
   },
 };

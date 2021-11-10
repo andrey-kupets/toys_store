@@ -1,6 +1,7 @@
 module.exports = {
   AUTHORIZATION: 'Authorization',
   AMAZONAWS: 'amazonaws.com/',
+  REGISTER: 'Register',
 
   // FILES MAX_SIZES
   DOC_MAX_SIZE: 5 * 1024 * 1024, // 5MB
