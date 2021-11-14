@@ -8,4 +8,5 @@ module.exports = {
   regExpEnum: require('./regExp.enum'),
   responseCodesEnum: require('./responseCodes.enum'),
   userRolesEnum: require('./userRoles.enum'),
+  userStatusesEnum: require('./userStatuses.enum'),
 };

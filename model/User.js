@@ -1,6 +1,6 @@
 const { model, Schema } = require('mongoose');
 
-const { dbCollectionsEnum: { USER } } = require('../constant');
+const { dbCollectionsEnum: { USER }, userRolesEnum, userStatusesEnum } = require('../constant');
 
 const cartSubScheme = { // 1st way
   _id: { type: String, required: true },
@@ -8,12 +8,36 @@ const cartSubScheme = { // 1st way
 };
 
 const userScheme = new Schema({
-  name: { type: String, required: true },
-  phone: { type: String },
-  email: { type: String, required: true },
-  password: { type: String, required: true, select: false },
-  role: { type: String, default: 'customer' },
-  status: { type: String, default: 'non-activated' },
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+    trim: true
+  },
+  password: {
+    type: String,
+    required: true,
+    trim: true,
+    select: false
+  },
+  phone: {
+    type: String,
+    trim: true
+  },
+  role: {
+    type: String,
+    default: userRolesEnum.CUSTOMER,
+    // enum: Object.values(userRolesEnum)
+  },
+  status: {
+    type: String,
+    default: userStatusesEnum.NON_ACTIVATED
+  },
   _cart: [cartSubScheme], // 1st way
   // _cart: [{ type: Schema.Types.ObjectId }], // 2nd way - ONLY this one fits '.aggregate' cause id is ObjectId in Mongo
   // _cart: [{ type: Schema.Types.Mixed }], // 3rd way

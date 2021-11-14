@@ -2,7 +2,7 @@ const {
   emailActionsEnum,
   messagesEnum,
   responseCodesEnum,
-  actionTokensEnum
+  actionTokensEnum, userStatusesEnum
 } = require('../constant');
 const { passwordHasher } = require('../helper');
 const {
@@ -70,7 +70,7 @@ module.exports = {
     try {
       const { activatedUserInfo: { token, user } } = req;
 
-      await userService.updateOneUser(user._id, { status: 'activated' });
+      await userService.updateOneUser(user._id, { status: userStatusesEnum.ACTIVATED });
       await mailService.sendMail(
         user.email,
         emailActionsEnum.REGISTER_ACTIVATE,
