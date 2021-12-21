@@ -15,22 +15,11 @@ router.route('/')
 
 router.route('/register/activate')
   .put(
-    // userMiddleware.isUserIdValid,
-    // userMiddleware.checkUserExistenceByDynamicParams('userId', 'params', '_id'),
+    userMiddleware.isUserIdValid,
+    userMiddleware.checkUserExistenceByDynamicParams('userId', 'params', '_id'),
     userMiddleware.checkActionToken(actionTokensEnum.REGISTER_ACTIVATE),
     userController.registerActivate
   );
-
-// router.route('/:userId')
-//   .all(userMiddleware.isUserIdValid)
-//   .get(userController.getUserById)
-//   .delete(
-//     authMiddleware.checkAccessToken,
-//     userController.removeUserById
-//   )
-//   .put(
-//     authMiddleware.checkAccessToken,
-//     userController.updateUser);
 
 router.use('/:userId',
   userMiddleware.isUserIdValid,

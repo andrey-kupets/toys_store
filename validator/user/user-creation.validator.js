@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const { regExpEnum } = require('../../constant');
+const { regExpEnum, userRolesEnum, userStatusesEnum } = require('../../constant');
 
 const cartSubScheme = Joi.array().items(
   Joi.object({
@@ -27,8 +27,8 @@ module.exports = Joi.object({
   phone: Joi.string().regex(regExpEnum.MOBILE_REGEXP),
   email: Joi.string().regex(regExpEnum.EMAIL_REGEXP).required(),
   password: Joi.string().regex(regExpEnum.PASSWORD_REGEXP).required(),
-  role: Joi.string().default('customer'),
-  status: Joi.string().default('non-activated'),
+  role: Joi.string().default(userRolesEnum.CUSTOMER),
+  status: Joi.string().default(userStatusesEnum.NON_ACTIVATED),
   _cart: cartSubScheme,
   _wishlist: wishlistSubScheme,
 });

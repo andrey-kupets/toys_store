@@ -89,7 +89,6 @@ module.exports = {
       //     );
       //   }
       // });
-      // req.user = user; // for further token fetching         // TODO
 
       next();
     } catch (e) {

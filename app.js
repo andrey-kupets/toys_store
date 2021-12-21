@@ -8,7 +8,7 @@ const path = require('path');
 dotenv.config();
 
 const { MONGO_URL, PORT } = require('./config');
-const apiRouter = require('./router/api.router'); // крашится апка, если apiRouter деструктуризировать с ./router
+const apiRouter = require('./router/api.router'); // App crushes, if apiRouter is destructured from ./router
 
 const app = express();
 

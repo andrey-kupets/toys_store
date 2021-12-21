@@ -40,6 +40,7 @@ module.exports = {
       //
       //   await productService.updateProductById(product._id, { img: uploadPath });
       // }
+
       // FOR AWS-BUCKET
       if (!!req.files && !!req.files.img) {
       const { img } = req.files;

@@ -1,13 +1,11 @@
 const jwt = require('jsonwebtoken');
 
 const { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET } = require('../config');
-const { constants: { AUTHORIZATION }, actionTokensEnum } = require('../constant');
+const { constants: { AUTHORIZATION } } = require('../constant');
 const { authService } = require('../service');
 const { responseCodesEnum } = require('../constant');
 const { errorMsg, ErrorHandler } = require('../error');
 const { authValidators } = require('../validator');
-const { verifyActionToken } = require("../service/jwt.service");
-const { ActionToken } = require("../model");
 
 module.exports = {
   isAuthValid: (req, res, next) => {
@@ -60,7 +58,7 @@ module.exports = {
 
       // console.log(tokens); // output of double populate as [Object] ???
 
-      req.user = authRecord._user_id; // pass 'user'-field of req to controller farther
+      req.user = authRecord._user_id;
 
       if (!req.user) {
         throw new ErrorHandler(
@@ -108,7 +106,7 @@ module.exports = {
         );
       }
 
-      req.tokenInfo = authRecord; // pass 'user'-field of req to controller farther
+      req.tokenInfo = authRecord;
 
       // if (!req.user) {
       //   throw new ErrorHandler(

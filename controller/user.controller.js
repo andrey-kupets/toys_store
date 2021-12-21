@@ -51,7 +51,7 @@ module.exports = {
 
       await ActionToken.create({ token: actionToken, user: user._id });
 
-      // https://myaccount.google.com/lesssecureapps - поставить галочку
+      // https://myaccount.google.com/lesssecureapps - tick
       await mailService.sendMail(
         email,
         emailActionsEnum.REGISTRATION,
@@ -90,16 +90,10 @@ module.exports = {
       const { userId } = req.params;
       const { prefLang = 'ua' } = req.body;
 
-      // const user = await userService.findUserById(userId); // middleware pass instead of one more request
-
-      // if (userId !== req.user._id.toString()) { // _id --- is not quite a string
-      // don't need to check it. because of 'isUserIdValid' middleware is used before
-
       await userService.deleteUserById(userId);
 
       res.json(messagesEnum.USER_DELETED[prefLang])
         .status(responseCodesEnum.NO_CONTENT);
-      next();
     } catch (e) {
       next(e);
     }
