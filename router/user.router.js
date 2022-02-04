@@ -15,8 +15,6 @@ router.route('/')
 
 router.route('/register/activate')
   .put(
-    userMiddleware.isUserIdValid,
-    userMiddleware.checkUserExistenceByDynamicParams('userId', 'params', '_id'),
     userMiddleware.checkActionToken(actionTokensEnum.REGISTER_ACTIVATE),
     userController.registerActivate
   );
