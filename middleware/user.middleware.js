@@ -64,8 +64,6 @@ module.exports = {
 
   doesUserAlreadyExist: async (req, res, next) => {
     try {
-      // 1st way by findOne(e)
-
       const { email } = req.body;
       const user = await userService.findUserByEmail({ email });
 
@@ -76,20 +74,6 @@ module.exports = {
         );
       }
 
-      // 2nd way by find()
-      //
-      // const { body } = req;
-      // const users = await userService.findUsers();
-      //
-      // users.forEach((user) => {
-      //   if ((body.email === user.email) || (body.password === user.password)) {
-      //     throw new ErrorHandler(
-      //       responseCodesEnum.BAD_REQUEST,
-      //       errorMsg.USER_EXISTS.customCode
-      //     );
-      //   }
-      // });
-
       next();
     } catch (e) {
       next(e);
@@ -98,8 +82,6 @@ module.exports = {
 
   doesUserExist: async (req, res, next) => {
     try {
-      // 1st way by findOne(e)
-
       const { email, password } = req.body;
       const user = await userService.findUserByEmail({ email }).select('+password');
 
@@ -125,20 +107,6 @@ module.exports = {
           errorMsg.WRONG_EMAIL_OR_PASSWORD.customCode
         );
       }
-
-      // 2nd way by find()
-      //
-      // const { body } = req;
-      // const users = await userService.findUsers();
-      //
-      // users.forEach((user) => {
-      //   if ((body.email === user.email) || (body.password === user.password)) {
-      //     throw new ErrorHandler(
-      //       responseCodesEnum.BAD_REQUEST,
-      //       errorMsg.USER_EXISTS.customCode
-      //     );
-      //   }
-      // });
 
       req.user = user; // pass to next()
 
