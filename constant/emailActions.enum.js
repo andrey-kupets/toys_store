@@ -3,6 +3,6 @@ module.exports = {
   ACCOUNT_DELETION: 'account-deletion',
   FORGOT_PASS: 'forgot-pass',
   REGISTER_ACTIVATE: 'register-activate',
-  REGISTRATION: 'registration',
+  REGISTER: 'register',
   PASSWORD_CHANGING: 'password-changing',
 };

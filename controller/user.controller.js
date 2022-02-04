@@ -54,7 +54,7 @@ module.exports = {
       // https://myaccount.google.com/lesssecureapps - tick
       await mailService.sendMail(
         email,
-        emailActionsEnum.REGISTRATION,
+        emailActionsEnum.REGISTER,
         { name, frontUrl: `${FRONT_URL}/register/activate?token=${actionToken}` }
       );
 
